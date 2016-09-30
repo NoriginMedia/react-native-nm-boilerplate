@@ -1,9 +1,10 @@
-import text from "./src/js/shared/module";
+import ReactDOM from "react-dom";
+import WebApp from "./src/js/web/app";
 
 window.addEventListener("load", () => {
 	const rootNode = document.createElement("div");
 
-	rootNode.innerHTML = text;
-
 	document.body.appendChild(rootNode);
+
+	ReactDOM.render(WebApp, rootNode);
 });
