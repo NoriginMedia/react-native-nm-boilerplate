@@ -9,10 +9,6 @@ export default {
 
 	devtool: "source-map",
 
-	devServer: {
-		inline: true
-	},
-
 	resolve: {
 		root: SRC_PATH,
 		extension: ["", ".js"],
