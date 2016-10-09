@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
-import ChildWithProps from "../ChildWithProps";
 import {testAction} from "../actions";
 
 class Home extends Component {
@@ -9,14 +8,17 @@ class Home extends Component {
 	}
 
 	render() {
+		const {component: View, ...rest} = this.props;
+
 		return (
-			<ChildWithProps {...this.props} />
+			<View {...rest} />
 		);
 	}
 }
 
 Home.propTypes = {
-	testAction: PropTypes.func.isRequired
+	testAction: PropTypes.func.isRequired,
+	component: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({test}) => ({test});

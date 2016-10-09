@@ -1,3 +1,4 @@
 export default {
-	test: ""
+	test: "",
+	authenticatedAnonymously: true
 };
