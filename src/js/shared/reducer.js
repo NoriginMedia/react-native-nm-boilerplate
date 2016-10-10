@@ -3,9 +3,9 @@ import {ACTION_TYPES} from "./actions";
 
 function appReducer(state = initialState, action) {
 	switch (action.type) {
-		case ACTION_TYPES.TEST_ACTION:
+		case ACTION_TYPES.AUTH_ANONYMOUSLY:
 			return Object.assign({}, state, {
-				test: action.payload.test
+				authenticatedAnonymously: true
 			});
 
 		default:

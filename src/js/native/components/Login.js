@@ -1,8 +1,8 @@
 import React from "react";
 import {View, Text} from "react-native";
 
-const Home = () => <View>
-	<Text>{"Home"}</Text>
+const Login = () => <View>
+	<Text>{"Login here"}</Text>
 </View>;
 
-export default Home;
+export default Login;

@@ -1,11 +1,7 @@
-import React, {PropTypes} from "react";
+import React from "react";
 
-const Home = (props) => <div>
-	<span>{props.test}</span>
+const Home = () => <div>
+	<span>{"Home"}</span>
 </div>;
-
-Home.propTypes = {
-	test: PropTypes.string
-};
 
 export default Home;

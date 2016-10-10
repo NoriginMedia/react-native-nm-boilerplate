@@ -1,4 +1,4 @@
 export default {
-	test: "",
-	authenticatedAnonymously: true
+	authenticatedAnonymously: false,
+	fullyAuthenticated: false
 };

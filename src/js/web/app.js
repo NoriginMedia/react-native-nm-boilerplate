@@ -1,11 +1,12 @@
 import React from "react";
-import {BrowserRouter} from "react-router";
+import {HashRouter} from "react-router";
 import Store from "../shared/store";
 import AuthWrapper from "../shared/containers/AuthWrapper";
 import Layout from "./components/Layout";
+import Loader from "./components/Loader";
 
 export default <Store>
-	<BrowserRouter basename="/app">
-		<AuthWrapper component={Layout} />
-	</BrowserRouter>
+	<HashRouter>
+		<AuthWrapper component={Layout} loader={Loader} />
+	</HashRouter>
 </Store>;

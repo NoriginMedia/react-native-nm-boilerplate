@@ -1,10 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 
 export const ACTION_TYPES = {
-	TEST_ACTION: "TEST_ACTION"
+	AUTH_ANONYMOUSLY: "AUTH_ANONYMOUSLY"
 };
 
-export const testAction = () => ({
-	type: ACTION_TYPES.TEST_ACTION,
-	payload: {test: "Text"}
+export const authAnonymously = () => ({
+	type: ACTION_TYPES.AUTH_ANONYMOUSLY
 });

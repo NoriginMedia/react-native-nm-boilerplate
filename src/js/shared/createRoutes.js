@@ -1,15 +1,27 @@
 import React from "react";
 import {Match} from "react-router";
+import FullAuthWrapper from "./containers/FullAuthWrapper";
 
 export default (routeConfigs) => routeConfigs.map((routeConfig, index) => {
 	const Container = routeConfig.container;
+	const View = routeConfig.view;
+
+	let MatchingComponent = (props) => <Container component={View} {...props} />;
+
+	if (routeConfig.authProtected) {
+		MatchingComponent = (props) => <FullAuthWrapper
+			container={Container}
+			component={View}
+			{...props}
+		/>;
+	}
 
 	return (
 		<Match
 			key={index}
-			exact={routeConfig.exact === true}
+			exactly={routeConfig.exactly === true}
 			pattern={routeConfig.pattern}
-			component={(props) => <Container component={routeConfig.view} {...props} />}
+			component={MatchingComponent}
 		/>
 	);
 });

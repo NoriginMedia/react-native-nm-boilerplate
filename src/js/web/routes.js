@@ -1,11 +1,20 @@
 import HomeContainer from "../shared/containers/Home";
 import Home from "./components/Home";
 
+import LoginContainer from "../shared/containers/Login";
+import Login from "./components/Login";
+
 export default [
 	{
+		pattern: "/login",
+		container: LoginContainer,
+		view: Login
+	},
+	{
 		pattern: "/",
-		exact: true,
+		exactly: true,
 		container: HomeContainer,
-		view: Home
+		view: Home,
+		authProtected: true
 	}
 ];
