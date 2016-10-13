@@ -1,18 +1,38 @@
 import React, {PropTypes} from "react";
 import {connect} from "react-redux";
+import {
+	fetchSlides,
+	fetchChannels,
+	fetchCategories
+} from "../actions";
 
-const Home = (props) => {
-	const {component: Component, ...rest} = props;
+class Home extends React.Component {
+	componentDidMount() {
+		this.props.fetchSlides();
+		this.props.fetchChannels();
+		this.props.fetchCategories();
+	}
 
-	return (
-		<Component {...rest} />
-	);
-};
+	render() {
+		const {component: Component, ...rest} = this.props;
+
+		return (
+			<Component {...rest} />
+		);
+	}
+}
 
 Home.propTypes = {
-	component: PropTypes.func.isRequired
+	component: PropTypes.func.isRequired,
+	fetchSlides: PropTypes.func,
+	fetchChannels: PropTypes.func,
+	fetchCategories: PropTypes.func
 };
 
 const mapStateToProps = () => ({});
 
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps, {
+	fetchSlides,
+	fetchChannels,
+	fetchCategories
+})(Home);
