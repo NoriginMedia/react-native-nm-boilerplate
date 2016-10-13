@@ -3,9 +3,10 @@ import {ACTION_TYPES} from "./actions";
 
 function appReducer(state = initialState, action) {
 	switch (action.type) {
-		case ACTION_TYPES.AUTH_ANONYMOUSLY:
+		case ACTION_TYPES.AUTH_ANONYMOUSLY_SUCCESS:
 			return Object.assign({}, state, {
-				authenticatedAnonymously: true
+				authenticatedAnonymously: true,
+				sessionId: action.payload.sessionId
 			});
 
 		default:

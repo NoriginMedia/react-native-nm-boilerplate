@@ -14,7 +14,6 @@ export default [
 		pattern: "/",
 		exactly: true,
 		container: HomeContainer,
-		view: Home,
-		authProtected: true
+		view: Home
 	}
 ];
