@@ -26,10 +26,17 @@ Home.propTypes = {
 	component: PropTypes.func.isRequired,
 	fetchSlides: PropTypes.func,
 	fetchChannels: PropTypes.func,
-	fetchCategories: PropTypes.func
+	fetchCategories: PropTypes.func,
+	slides: PropTypes.array,
+	channels: PropTypes.array,
+	categories: PropTypes.array
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({slides, channels, categories}) => ({
+	slides,
+	channels,
+	categories
+});
 
 export default connect(mapStateToProps, {
 	fetchSlides,
