@@ -1,5 +1,6 @@
 import React, {PropTypes} from "react";
-import {View, Text, StyleSheet, ScrollView} from "react-native";
+import {View, StyleSheet, ScrollView} from "react-native";
+import SlideshowItem from "./SlideshowItem";
 
 const styles = StyleSheet.create({
 	container: {
@@ -8,17 +9,13 @@ const styles = StyleSheet.create({
 });
 
 const Slideshow = (props) => <View style={styles.container}>
-	<ScrollView horizontal pagingEnabled >
-		{props.items.map((item, index) => <View key={index}>
-			<Text>{item.title}</Text>
-		</View>)}
+	<ScrollView horizontal showsHorizontalScrollIndicator={false} >
+		{props.items.map((item, index) => <SlideshowItem key={index} {...item} />)}
 	</ScrollView>
 </View>;
 
 Slideshow.propTypes = {
-	items: PropTypes.arrayOf(PropTypes.shape({
-		title: PropTypes.string.isRequired
-	})).isRequired
+	items: PropTypes.array.isRequired
 };
 
 export default Slideshow;

@@ -9,7 +9,9 @@ const styles = StyleSheet.create({
 	root: {
 		flex: 1
 	},
-	content: {}
+	content: {
+		flex: 1
+	}
 });
 
 const Layout = () => <View style={styles.root}>

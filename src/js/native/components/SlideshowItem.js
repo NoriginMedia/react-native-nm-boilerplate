@@ -4,27 +4,26 @@ import {screenWidth, screenHeight} from "../utils/screen";
 
 const styles = StyleSheet.create({
 	image: {
-		width: screenWidth * 0.25,
-		height: screenHeight * 0.1,
-		backgroundColor: "black"
+		width: screenWidth,
+		height: screenHeight * 0.35
 	}
 });
 
-const LiveChannel = (props) => {
-	const imageUrl = props.images.LOGO;
+const SlideshowItem = (props) => {
+	const imageUrl = props.images.CarouselLandscapeHeader;
 
-	return (imageUrl ? <Image
+	return (<Image
 		style={styles.image}
 		resizeMode={"cover"}
 		source={{uri: imageUrl}}
-	/> : null);
+	/>);
 };
 
-LiveChannel.propTypes = {
+SlideshowItem.propTypes = {
 	title: PropTypes.string.isRequired,
 	images: PropTypes.shape({
-		LOGO: PropTypes.string
+		CarouselLandscapeHeader: PropTypes.string.isRequired
 	}).isRequired
 };
 
-export default LiveChannel;
+export default SlideshowItem;
