@@ -23,11 +23,14 @@ const Home = (props) => <View style={styles.container}>
 			items={props.slides.length === 1 ? props.slides[0].contents : []}
 		/>
 		<CategorySlider
+			key={"channels"}
+			title={"Channels"}
 			itemComponent={LiveChannel}
 			items={props.channels}
 		/>
 		{props.categories.map((category, index) => <CategorySlider
 			key={index}
+			title={category.title}
 			itemComponent={Movie}
 			items={category.contents}
 		/>)}
@@ -35,9 +38,13 @@ const Home = (props) => <View style={styles.container}>
 </View>;
 
 Home.propTypes = {
-	slides: PropTypes.array.isRequired,
+	slides: PropTypes.arrayOf(PropTypes.shape({
+		contents: PropTypes.array.isRequired
+	})).isRequired,
 	channels: PropTypes.array.isRequired,
-	categories: PropTypes.array.isRequired
+	categories: PropTypes.arrayOf(PropTypes.shape({
+		title: PropTypes.string.isRequired
+	})).isRequired
 };
 
 export default Home;
