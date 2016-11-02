@@ -4,6 +4,7 @@ import Slideshow from "./Slideshow";
 import CategorySlider from "./CategorySlider";
 import LiveChannel from "./LiveChannel";
 import Movie from "./Movie";
+import TopBar from "./TopBar";
 
 const styles = StyleSheet.create({
 	container: {
@@ -15,6 +16,7 @@ const styles = StyleSheet.create({
 });
 
 const Home = (props) => <View style={styles.container}>
+	<TopBar />
 	<ScrollView
 		style={styles.scrollView}
 		showsVerticalScrollIndicator={false}

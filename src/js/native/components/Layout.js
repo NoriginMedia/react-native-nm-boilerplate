@@ -2,7 +2,6 @@ import React from "react";
 import {View, StatusBar, StyleSheet} from "react-native";
 import createRoutes from "../../shared/createRoutes";
 import routes from "../routes";
-import TopBar from "./TopBar";
 import colors from "../../shared/style/colors";
 
 const styles = StyleSheet.create({
@@ -20,7 +19,6 @@ const Layout = () => <View style={styles.root}>
 		backgroundColor={colors.darkBlue}
 	/>
 	<View style={styles.content}>
-		<TopBar />
 		{createRoutes(routes)}
 	</View>
 </View>;
