@@ -1,5 +1,5 @@
 import React from "react";
-import colors from "../../shared/style/colors";
+import colors from "../../shared/styles/colors";
 
 const styles = {
 	topBar: {

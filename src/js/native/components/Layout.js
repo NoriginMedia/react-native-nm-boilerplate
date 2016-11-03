@@ -2,7 +2,7 @@ import React from "react";
 import {View, StatusBar, StyleSheet} from "react-native";
 import createRoutes from "../../shared/createRoutes";
 import routes from "../routes";
-import colors from "../../shared/style/colors";
+import colors from "../../shared/styles/colors";
 
 const styles = StyleSheet.create({
 	root: {

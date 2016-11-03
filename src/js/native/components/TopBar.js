@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet} from "react-native";
-import colors from "../../shared/style/colors";
+import colors from "../../shared/styles/colors";
 import {isIos} from "../utils/platform";
 
 const styles = StyleSheet.create({

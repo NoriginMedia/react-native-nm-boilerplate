@@ -5,6 +5,7 @@ import CategorySlider from "./CategorySlider";
 import LiveChannel from "./LiveChannel";
 import Movie from "./Movie";
 import TopBar from "./TopBar";
+import BottomBar from "./BottomBar";
 
 const styles = StyleSheet.create({
 	container: {
@@ -37,6 +38,7 @@ const Home = (props) => <View style={styles.container}>
 			items={category.contents}
 		/>)}
 	</ScrollView>
+	<BottomBar />
 </View>;
 
 Home.propTypes = {

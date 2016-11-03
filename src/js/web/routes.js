@@ -7,6 +7,7 @@ import Login from "./components/Login";
 export default [
 	{
 		pattern: "/login",
+		exactly: true,
 		container: LoginContainer,
 		view: Login
 	},
