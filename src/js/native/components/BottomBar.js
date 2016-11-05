@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, TouchableHighlight, StyleSheet} from "react-native";
+import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
 import {Link} from "react-router";
 
 const styles = StyleSheet.create({
@@ -43,12 +43,12 @@ const BottomBar = () => <View style={styles.bottomBar}>
 			state: {fromMenu: true}
 		}}
 	>{
-		({transition, isActive}) => <TouchableHighlight
+		({transition, isActive}) => <TouchableOpacity
 			onPress={transition}
 			style={styles.bottomBarButton}
 		>
 			<Text style={isActive ? {fontWeight: "bold"} : {}}>{page.title}</Text>
-		</TouchableHighlight>
+		</TouchableOpacity>
 	}</Link>)}
 </View>;
 
