@@ -17,6 +17,7 @@
     "query-string": "^4.2.3",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-motion": "^0.4.5",
     "react-native": "^0.34.0",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-redux": "^4.4.5",

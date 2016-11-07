@@ -2,6 +2,7 @@ import React from "react";
 import {View, Text, StyleSheet} from "react-native";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
+import createTransition from "./Transition";
 
 const styles = StyleSheet.create({
 	container: {
@@ -20,4 +21,4 @@ const ProgramGuide = () => <View style={styles.container}>
 	<BottomBar />
 </View>;
 
-export default ProgramGuide;
+export default createTransition(ProgramGuide);

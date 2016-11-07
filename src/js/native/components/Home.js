@@ -6,6 +6,7 @@ import LiveChannel from "./LiveChannel";
 import Movie from "./Movie";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
+import createTransition from "./Transition";
 
 const styles = StyleSheet.create({
 	container: {
@@ -51,4 +52,4 @@ Home.propTypes = {
 	})).isRequired
 };
 
-export default Home;
+export default createTransition(Home);

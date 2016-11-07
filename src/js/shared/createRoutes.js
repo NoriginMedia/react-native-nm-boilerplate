@@ -16,12 +16,16 @@ export default (routeConfigs) => routeConfigs.map((routeConfig, index) => {
 		/>;
 	}
 
+	const renderingProps = routeConfig.alwaysRender ?
+		{children: MatchingComponent} :
+		{component: MatchingComponent};
+
 	return (
 		<Match
 			key={index}
 			exactly={routeConfig.exactly === true}
 			pattern={routeConfig.pattern}
-			component={MatchingComponent}
+			{...renderingProps}
 		/>
 	);
 });
