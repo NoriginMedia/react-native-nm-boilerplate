@@ -6,41 +6,61 @@ import LiveChannel from "./LiveChannel";
 import Movie from "./Movie";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
-import createTransition from "./Transition";
+import createTransition from "../../shared/Transition";
+import {screenHeight} from "../utils/screen";
+import {absoluteFlex} from "../../shared/styles/layout";
+import {floatFromBottom} from "../styles/animations";
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1
-	},
 	scrollView: {
 		flex: 1
 	}
 });
 
-const Home = (props) => <View style={styles.container}>
-	<TopBar />
-	<ScrollView
-		style={styles.scrollView}
-		showsVerticalScrollIndicator={false}
+const Home = (props) => {
+	let fadingStyle = {};
+
+	if (props.fadingIn) {
+		fadingStyle = {
+			zIndex: 2,
+			...floatFromBottom(props.fader, screenHeight)
+		};
+	} else if (props.fadingOut) {
+		fadingStyle = {
+			zIndex: 1
+		};
+	}
+
+	return (<View
+		style={{
+			...absoluteFlex,
+			...fadingStyle
+		}}
 	>
-		<Slideshow
-			items={props.slides.length === 1 ? props.slides[0].contents : []}
-		/>
-		<CategorySlider
-			key={"channels"}
-			title={"Channels"}
-			itemComponent={LiveChannel}
-			items={props.channels}
-		/>
-		{props.categories.map((category, index) => <CategorySlider
-			key={index}
-			title={category.title}
-			itemComponent={Movie}
-			items={category.contents}
-		/>)}
-	</ScrollView>
-	<BottomBar />
-</View>;
+		<TopBar />
+		<ScrollView
+			style={styles.scrollView}
+			showsVerticalScrollIndicator={false}
+		>
+			<Slideshow
+				items={props.slides.length === 1 ? props.slides[0].contents : []}
+			/>
+			<CategorySlider
+				key={"channels"}
+				title={"Channels"}
+				itemComponent={LiveChannel}
+				items={props.channels}
+			/>
+			{props.categories.map((category, index) => <CategorySlider
+				key={index}
+				title={category.title}
+				itemComponent={Movie}
+				items={category.contents}
+			/>)}
+		</ScrollView>
+		<BottomBar />
+	</View>);
+};
 
 Home.propTypes = {
 	slides: PropTypes.arrayOf(PropTypes.shape({
@@ -49,7 +69,10 @@ Home.propTypes = {
 	channels: PropTypes.array.isRequired,
 	categories: PropTypes.arrayOf(PropTypes.shape({
 		title: PropTypes.string.isRequired
-	})).isRequired
+	})).isRequired,
+	fader: PropTypes.number.isRequired,
+	fadingIn: PropTypes.bool.isRequired,
+	fadingOut: PropTypes.bool.isRequired
 };
 
 export default createTransition(Home);
