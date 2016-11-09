@@ -2,7 +2,7 @@ import React, {PropTypes} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
-import createTransition from "../../shared/Transition";
+import createTransition from "../../shared/components/Transition";
 import {screenHeight} from "../utils/screen";
 import {absoluteFlex} from "../../shared/styles/layout";
 import {floatFromBottom} from "../styles/animations";
@@ -16,33 +16,35 @@ const styles = StyleSheet.create({
 	}
 });
 
-const ProgramGuide = (props) => {
+const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
 	let fadingStyle = {};
 
-	if (props.fadingIn) {
+	if (fadingIn) {
 		fadingStyle = {
 			zIndex: 2,
-			...floatFromBottom(props.fader, screenHeight)
+			...floatFromBottom(fader, screenHeight)
 		};
-	} else if (props.fadingOut) {
+	} else if (fadingOut) {
 		fadingStyle = {
 			zIndex: 1
 		};
 	}
 
-	return (<View
-		style={{
-			...absoluteFlex,
-			...fadingStyle
-		}}
-	>
-		<TopBar />
-		<View style={styles.content}>
-			<Text style={styles.content}>{"EPG"}</Text>
-		</View>
-		<BottomBar />
-	</View>);
+	return fadingStyle;
 };
+
+const ProgramGuide = (props) => <View
+	style={{
+		...absoluteFlex,
+		...getFadingStyle(props)
+	}}
+>
+	<TopBar />
+	<View style={styles.content}>
+		<Text style={styles.content}>{"EPG"}</Text>
+	</View>
+	<BottomBar />
+</View>;
 
 ProgramGuide.propTypes = {
 	fader: PropTypes.number.isRequired,

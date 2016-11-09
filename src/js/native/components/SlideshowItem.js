@@ -1,6 +1,7 @@
 import React, {PropTypes} from "react";
-import {Image, StyleSheet, View, Text} from "react-native";
+import {StyleSheet, View, Text} from "react-native";
 import {screenWidth, screenHeight} from "../utils/screen";
+import Image from "./Image";
 
 const styles = StyleSheet.create({
 	image: {
@@ -27,7 +28,7 @@ const SlideshowItem = (props) => {
 		<Image
 			style={styles.image}
 			resizeMode={"cover"}
-			source={{uri: imageUrl}}
+			source={imageUrl}
 		>
 			<View style={styles.overlay}>
 				<Text style={styles.title}>{props.title}</Text>
@@ -39,7 +40,7 @@ const SlideshowItem = (props) => {
 SlideshowItem.propTypes = {
 	title: PropTypes.string.isRequired,
 	images: PropTypes.shape({
-		CarouselLandscapeHeader: PropTypes.string.isRequired
+		CarouselLandscapeHeader: PropTypes.string
 	}).isRequired
 };
 

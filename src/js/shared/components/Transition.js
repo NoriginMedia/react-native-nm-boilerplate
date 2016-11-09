@@ -1,6 +1,11 @@
 import React, {PropTypes} from "react";
 import {Motion, spring} from "react-motion";
 
+const springConfig = {
+	stiffness: 300,
+	damping: 28
+};
+
 class Transition extends React.Component {
 	constructor(props) {
 		super(props);
@@ -33,7 +38,7 @@ class Transition extends React.Component {
 
 		return (<Motion
 			defaultStyle={{fader: matchedFromBeginning || this.state.fadingOut ? 100 : 0}}
-			style={{fader: spring(matchedFromBeginning || this.state.fadingIn ? 100 : 0)}}
+			style={{fader: spring(matchedFromBeginning || this.state.fadingIn ? 100 : 0, springConfig)}}
 		>
 			{({fader}) => {
 				if (fader === 0) {

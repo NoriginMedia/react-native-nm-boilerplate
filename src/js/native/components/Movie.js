@@ -1,6 +1,7 @@
 import React, {PropTypes} from "react";
-import {Image, StyleSheet} from "react-native";
+import {StyleSheet} from "react-native";
 import {screenWidth, screenHeight} from "../utils/screen";
+import Image from "./Image";
 
 const styles = StyleSheet.create({
 	image: {
@@ -10,19 +11,19 @@ const styles = StyleSheet.create({
 });
 
 const Movie = (props) => {
-	const imageUrl = props.images.CarouselLandscapeSmall;
+	const imageUrl = props.images.CarouselLandscapeSmall + "sddgdfgdf";
 
 	return (<Image
 		style={styles.image}
 		resizeMode={"cover"}
-		source={{uri: imageUrl}}
+		source={imageUrl}
 	/>);
 };
 
 Movie.propTypes = {
 	title: PropTypes.string.isRequired,
 	images: PropTypes.shape({
-		CarouselLandscapeSmall: PropTypes.string.isRequired
+		CarouselLandscapeSmall: PropTypes.string
 	}).isRequired
 };
 

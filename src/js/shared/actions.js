@@ -16,7 +16,7 @@ export const ACTION_TYPES = {
 };
 
 const ENDPOINTS = {
-	AUTH: "teracom-se/anonymous",
+	AUTH: "orange-es/anonymous",
 	TAG: "tag",
 	EPG: "epg"
 };
@@ -134,7 +134,7 @@ export const fetchCategories = () => (dispatch) => {
 
 	const params = {
 		...ENDPOINT_DEFAULT_PARAMS.TAG,
-		byFamilyLink: "home"
+		byFamilyLink: "svodCategories"
 	};
 
 	return get(ENDPOINTS.TAG, params)

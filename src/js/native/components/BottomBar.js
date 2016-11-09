@@ -40,7 +40,7 @@ const BottomBar = () => <View style={styles.bottomBar}>
 		key={index}
 		to={{
 			pathname: page.path,
-			state: {fromMenu: true}
+			state: {from: "menu"}
 		}}
 	>{
 		({transition, isActive}) => <TouchableOpacity
