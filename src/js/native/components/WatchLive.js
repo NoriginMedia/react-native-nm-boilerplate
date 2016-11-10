@@ -2,7 +2,6 @@ import React, {PropTypes} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
-import createTransition from "../../shared/components/Transition";
 import {screenHeight, screenWidth} from "../utils/screen";
 import {absoluteFlex} from "../../shared/styles/layout";
 import {floatFromBottom, floatFromRight} from "../styles/animations";
@@ -14,7 +13,9 @@ const styles = StyleSheet.create({
 });
 
 const getFadingStyle = ({fader, fadingIn, fadingOut, location}) => {
-	let fadingStyle = {};
+	let fadingStyle = {
+		flex: 1
+	};
 
 	if (fadingIn) {
 		const floatAnimation = location.state.from === "home" ?
@@ -22,12 +23,12 @@ const getFadingStyle = ({fader, fadingIn, fadingOut, location}) => {
 			floatFromBottom(fader, screenHeight);
 
 		fadingStyle = {
-			zIndex: 2,
+			...absoluteFlex,
 			...floatAnimation
 		};
 	} else if (fadingOut) {
 		fadingStyle = {
-			zIndex: 1
+			...absoluteFlex
 		};
 	}
 
@@ -36,7 +37,6 @@ const getFadingStyle = ({fader, fadingIn, fadingOut, location}) => {
 
 const WatchLive = (props) => <View
 	style={{
-		...absoluteFlex,
 		...getFadingStyle(props)
 	}}
 >
@@ -58,4 +58,4 @@ WatchLive.propTypes = {
 	})
 };
 
-export default createTransition(WatchLive);
+export default WatchLive;

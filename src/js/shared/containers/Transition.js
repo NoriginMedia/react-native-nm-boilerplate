@@ -1,9 +1,15 @@
 import React, {PropTypes} from "react";
 import {Motion, spring} from "react-motion";
 
-const springConfig = {
-	stiffness: 300,
-	damping: 28
+const slowSpringConfig = {
+	stiffness: 280,
+	damping: 28,
+	precision: 0.1
+};
+
+const fastSpringConfig = {
+	...slowSpringConfig,
+	stiffness: 300
 };
 
 class Transition extends React.Component {
@@ -38,7 +44,8 @@ class Transition extends React.Component {
 
 		return (<Motion
 			defaultStyle={{fader: matchedFromBeginning || this.state.fadingOut ? 100 : 0}}
-			style={{fader: spring(matchedFromBeginning || this.state.fadingIn ? 100 : 0, springConfig)}}
+			style={{fader: spring(matchedFromBeginning || this.state.fadingIn ? 100 : 0,
+				this.state.fadingOut ? fastSpringConfig : slowSpringConfig)}}
 		>
 			{({fader}) => {
 				if (fader === 0) {
@@ -47,7 +54,7 @@ class Transition extends React.Component {
 
 				return (<Component
 					fader={fader}
-					fadingIn={this.state.fadingIn}
+					fadingIn={this.state.fadingIn && fader !== 100}
 					fadingOut={this.state.fadingOut}
 					{...rest}
 				/>);

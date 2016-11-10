@@ -2,31 +2,29 @@ import React, {PropTypes} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
-import createTransition from "../../shared/components/Transition";
 import {screenHeight} from "../utils/screen";
 import {absoluteFlex} from "../../shared/styles/layout";
 import {floatFromBottom} from "../styles/animations";
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1
-	},
 	content: {
 		flex: 1
 	}
 });
 
 const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
-	let fadingStyle = {};
+	let fadingStyle = {
+		flex: 1
+	};
 
 	if (fadingIn) {
 		fadingStyle = {
-			zIndex: 2,
+			...absoluteFlex,
 			...floatFromBottom(fader, screenHeight)
 		};
 	} else if (fadingOut) {
 		fadingStyle = {
-			zIndex: 1
+			...absoluteFlex
 		};
 	}
 
@@ -35,7 +33,6 @@ const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
 
 const Movies = (props) => <View
 	style={{
-		...absoluteFlex,
 		...getFadingStyle(props)
 	}}
 >
@@ -52,4 +49,4 @@ Movies.propTypes = {
 	fadingOut: PropTypes.bool.isRequired
 };
 
-export default createTransition(Movies);
+export default Movies;

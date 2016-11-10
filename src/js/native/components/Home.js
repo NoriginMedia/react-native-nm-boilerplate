@@ -6,7 +6,6 @@ import LiveChannel from "./LiveChannel";
 import Movie from "./Movie";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
-import createTransition from "../../shared/components/Transition";
 import {screenHeight} from "../utils/screen";
 import {absoluteFlex} from "../../shared/styles/layout";
 import {floatFromBottom} from "../styles/animations";
@@ -18,16 +17,18 @@ const styles = StyleSheet.create({
 });
 
 const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
-	let fadingStyle = {};
+	let fadingStyle = {
+		flex: 1
+	};
 
 	if (fadingIn) {
 		fadingStyle = {
-			zIndex: 2,
+			...absoluteFlex,
 			...floatFromBottom(fader, screenHeight)
 		};
 	} else if (fadingOut) {
 		fadingStyle = {
-			zIndex: 1
+			...absoluteFlex
 		};
 	}
 
@@ -36,7 +37,6 @@ const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
 
 const Home = (props) => <View
 	style={{
-		...absoluteFlex,
 		...getFadingStyle(props)
 	}}
 >
@@ -78,4 +78,4 @@ Home.propTypes = {
 	fadingOut: PropTypes.bool.isRequired
 };
 
-export default createTransition(Home);
+export default Home;

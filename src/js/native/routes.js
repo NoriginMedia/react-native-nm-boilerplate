@@ -24,28 +24,25 @@ export default [
 		pattern: "/",
 		exactly: true,
 		container: HomeContainer,
-		view: Home,
-		alwaysRender: true
+		view: Home
 	},
 	{
 		pattern: "/tv",
 		exactly: true,
 		container: WatchLiveContainer,
 		view: WatchLive,
-		alwaysRender: true
+		authProtected: true
 	},
 	{
 		pattern: "/guide",
 		exactly: true,
 		container: ProgramGuideContainer,
-		view: ProgramGuide,
-		alwaysRender: true
+		view: ProgramGuide
 	},
 	{
 		pattern: "/movies",
 		exactly: true,
 		container: MoviesContainer,
-		view: Movies,
-		alwaysRender: true
+		view: Movies
 	}
 ];
