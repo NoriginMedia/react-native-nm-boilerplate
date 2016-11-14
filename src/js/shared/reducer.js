@@ -29,7 +29,7 @@ function appReducer(state = initialState, action) {
 				fullyAuthenticated: true,
 				sessionId: action.payload.sessionId,
 				username: action.payload.encrypted_username,
-				password: action.payload.encrypted_password,
+				password: action.payload.encrypted_password
 			});
 
 		default:

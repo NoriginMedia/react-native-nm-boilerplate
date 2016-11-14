@@ -13,7 +13,7 @@ const FullAuthWrapper = (props) => {
 		to={{
 			pathname: "/login",
 			state: {
-				referer: props.location
+				referrer: props.location
 			}
 		}}
 	/>);

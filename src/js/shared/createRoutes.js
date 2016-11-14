@@ -22,7 +22,7 @@ export default (routeConfigs) => routeConfigs.map((routeConfig, index) => {
 			key={index}
 			exactly={routeConfig.exactly === true}
 			pattern={routeConfig.pattern}
-			children={createTransition(MatchingComponent)}
+			children={createTransition(MatchingComponent, routeConfig.animated)}
 		/>
 	);
 });

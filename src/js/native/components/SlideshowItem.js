@@ -1,5 +1,6 @@
 import React, {PropTypes} from "react";
-import {StyleSheet, View, Text} from "react-native";
+import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
+import {Link} from "react-router";
 import {screenWidth, screenHeight} from "../utils/screen";
 import Image from "./Image";
 
@@ -14,7 +15,11 @@ const styles = StyleSheet.create({
 		left: 0,
 		width: screenWidth,
 		height: 50,
-		backgroundColor: "gray"
+		backgroundColor: "gray",
+		flex: 1,
+		justifyContent: "space-around",
+		alignItems: "center",
+		flexDirection: "row"
 	},
 	title: {
 		color: "white"
@@ -32,6 +37,21 @@ const SlideshowItem = (props) => {
 		>
 			<View style={styles.overlay}>
 				<Text style={styles.title}>{props.title}</Text>
+				<Link
+					to={{
+						pathname: "/details/program",
+						state: {from: "home"},
+						query: {
+							programInfoUri: props.uri
+						}
+					}}
+				>{
+					({transition}) => <TouchableOpacity
+						onPress={transition}
+					>
+						<Text>{"Info"}</Text>
+					</TouchableOpacity>
+				}</Link>
 			</View>
 		</Image>
 	);
@@ -41,7 +61,8 @@ SlideshowItem.propTypes = {
 	title: PropTypes.string.isRequired,
 	images: PropTypes.shape({
 		CarouselLandscapeHeader: PropTypes.string
-	}).isRequired
+	}).isRequired,
+	uri: PropTypes.string.isRequired
 };
 
 export default SlideshowItem;

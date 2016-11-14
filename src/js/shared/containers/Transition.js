@@ -37,25 +37,33 @@ class Transition extends React.Component {
 	}
 
 	render() {
-		const {component: Component, matched, ...rest} = this.props;
+		const {component: Component, matched, animated, ...rest} = this.props;
 
 		const firstTimeRender = !this.state.fadingIn && !this.state.fadingOut;
 		const matchedFromBeginning = matched && firstTimeRender;
 
+		const startFader = matchedFromBeginning || this.state.fadingOut ? 100 : 0;
+		const endFader = matchedFromBeginning || this.state.fadingIn ? 100 : 0;
+
+		const springConfig = this.state.fadingOut ? fastSpringConfig : slowSpringConfig;
+
 		return (<Motion
-			defaultStyle={{fader: matchedFromBeginning || this.state.fadingOut ? 100 : 0}}
-			style={{fader: spring(matchedFromBeginning || this.state.fadingIn ? 100 : 0,
-				this.state.fadingOut ? fastSpringConfig : slowSpringConfig)}}
+			defaultStyle={{fader: startFader}}
+			style={{fader: animated ? spring(endFader, springConfig) : endFader}}
 		>
 			{({fader}) => {
 				if (fader === 0) {
 					return null;
 				}
 
+				const fadingIn = this.state.fadingIn && fader !== 100;
+				const fadingOut = this.state.fadingOut;
+
 				return (<Component
 					fader={fader}
-					fadingIn={this.state.fadingIn && fader !== 100}
-					fadingOut={this.state.fadingOut}
+					fadingIn={fadingIn}
+					fadingOut={fadingOut}
+					isAnimating={fadingIn || fadingOut}
 					{...rest}
 				/>);
 			}}
@@ -65,9 +73,14 @@ class Transition extends React.Component {
 
 Transition.propTypes = {
 	component: PropTypes.func.isRequired,
-	matched: PropTypes.bool.isRequired
+	matched: PropTypes.bool.isRequired,
+	animated: PropTypes.bool
 };
 
-const createTransition = (Component) => (props) => <Transition component={Component} {...props} />;
+const createTransition = (Component, animated) => (props) => <Transition
+	component={Component}
+	animated={animated}
+	{...props}
+/>;
 
 export default createTransition;

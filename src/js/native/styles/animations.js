@@ -9,6 +9,15 @@ export const floatFromBottom = (fader, screenHeight) => ({
 	]
 });
 
+export const floatFromTop = (fader, screenHeight) => ({
+	backgroundColor: "white",
+	transform: [
+		{
+			translateY: (fader * (screenHeight / 100)) - screenHeight
+		}
+	]
+});
+
 export const floatFromRight = (fader, screenWidth) => ({
 	backgroundColor: "white",
 	transform: [

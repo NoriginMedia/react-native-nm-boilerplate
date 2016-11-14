@@ -2,6 +2,9 @@ import React, {PropTypes} from "react";
 import {View, TextInput, TouchableOpacity, Text} from "react-native";
 import {Redirect} from "react-router";
 import TopBar from "./TopBar";
+import {screenHeight} from "../utils/screen";
+import {absoluteFlex} from "../../shared/styles/layout";
+import {floatFromTop} from "../styles/animations";
 
 const styles = {
 	content: {
@@ -10,6 +13,25 @@ const styles = {
 	textInput: {
 		height: 40
 	}
+};
+
+const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
+	let fadingStyle = {
+		flex: 1
+	};
+
+	if (fadingIn) {
+		fadingStyle = {
+			...absoluteFlex,
+			...floatFromTop(fader, screenHeight)
+		};
+	} else if (fadingOut) {
+		fadingStyle = {
+			...absoluteFlex
+		};
+	}
+
+	return fadingStyle;
 };
 
 class Login extends React.Component {
@@ -22,7 +44,7 @@ class Login extends React.Component {
 			forceRedirectHome: false
 		};
 
-		this.redirectToReferer = this.redirectToReferer.bind(this);
+		this.redirectToReferrer = this.redirectToReferrer.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onCancel = this.onCancel.bind(this);
 	}
@@ -35,13 +57,13 @@ class Login extends React.Component {
 		this.setState({forceRedirectHome: true});
 	}
 
-	redirectToReferer() {
-		const referer = this.props.location.state && this.props.location.state.referer;
+	redirectToReferrer() {
+		const referrer = this.props.location.state && this.props.location.state.referrer;
 
 		return (<Redirect
 			to={{
-				pathname: referer ? referer.pathname : "/",
-				query: referer ? referer.query || {} : {},
+				pathname: referrer ? referrer.pathname : "/",
+				query: referrer ? referrer.query || {} : {},
 				state: {
 					from: "login"
 				}
@@ -49,15 +71,14 @@ class Login extends React.Component {
 		/>);
 	}
 
-	render() {
+	renderContent() {
 		if (this.props.fullyAuthenticated) {
-			return this.redirectToReferer();
+			return this.redirectToReferrer();
 		} else if (this.state.forceRedirectHome) {
 			return (<Redirect to={{pathname: "/"}} />);
 		}
 
-		return (<View style={styles.content}>
-			<TopBar />
+		return (<View>
 			<View>
 				<TextInput
 					style={styles.textInput}
@@ -84,6 +105,17 @@ class Login extends React.Component {
 			</TouchableOpacity>
 		</View>);
 	}
+
+	render() {
+		return (<View
+			style={{
+				...getFadingStyle(this.props)
+			}}
+		>
+			<TopBar />
+			{this.renderContent()}
+		</View>);
+	}
 }
 
 Login.propTypes = {
@@ -91,12 +123,15 @@ Login.propTypes = {
 	fullyAuthenticated: PropTypes.bool.isRequired,
 	location: PropTypes.shape({
 		state: PropTypes.shape({
-			referer: PropTypes.shape({
+			referrer: PropTypes.shape({
 				pathname: PropTypes.string.isRequired,
 				query: PropTypes.object
 			})
 		})
-	}).isRequired
+	}).isRequired,
+	fader: PropTypes.number.isRequired,
+	fadingIn: PropTypes.bool.isRequired,
+	fadingOut: PropTypes.bool.isRequired
 };
 
 export default Login;
