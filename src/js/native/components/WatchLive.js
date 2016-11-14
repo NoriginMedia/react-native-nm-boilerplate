@@ -2,9 +2,9 @@ import React, {PropTypes} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
-import {screenHeight, screenWidth} from "../utils/screen";
+import {screenHeight} from "../utils/screen";
 import {absoluteFlex} from "../../shared/styles/layout";
-import {floatFromBottom, floatFromRight} from "../styles/animations";
+import {floatFromBottom} from "../styles/animations";
 
 const styles = StyleSheet.create({
 	content: {
@@ -12,19 +12,15 @@ const styles = StyleSheet.create({
 	}
 });
 
-const getFadingStyle = ({fader, fadingIn, fadingOut, location}) => {
+const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
 	let fadingStyle = {
 		flex: 1
 	};
 
 	if (fadingIn) {
-		const floatAnimation = location.state.from === "home" ?
-			floatFromRight(fader, screenWidth) :
-			floatFromBottom(fader, screenHeight);
-
 		fadingStyle = {
 			...absoluteFlex,
-			...floatAnimation
+			...floatFromBottom(fader, screenHeight)
 		};
 	} else if (fadingOut) {
 		fadingStyle = {
@@ -50,12 +46,7 @@ const WatchLive = (props) => <View
 WatchLive.propTypes = {
 	fader: PropTypes.number.isRequired,
 	fadingIn: PropTypes.bool.isRequired,
-	fadingOut: PropTypes.bool.isRequired,
-	location: PropTypes.shape({
-		state: PropTypes.shape({
-			from: PropTypes.string
-		})
-	})
+	fadingOut: PropTypes.bool.isRequired
 };
 
 export default WatchLive;

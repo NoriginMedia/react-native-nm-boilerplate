@@ -24,6 +24,14 @@ function appReducer(state = initialState, action) {
 				categories: action.payload.categories
 			});
 
+		case ACTION_TYPES.LOGIN_SUCCESS:
+			return Object.assign({}, state, {
+				fullyAuthenticated: true,
+				sessionId: action.payload.sessionId,
+				username: action.payload.encrypted_username,
+				password: action.payload.encrypted_password,
+			});
+
 		default:
 			return state;
 	}

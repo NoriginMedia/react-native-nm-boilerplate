@@ -12,11 +12,15 @@ export const ACTION_TYPES = {
 	FETCH_CHANNELS_SUCCESS: "FETCH_CHANNELS_SUCCESS",
 	FETCH_CATEGORIES_REQUEST: "FETCH_CATEGORIES_REQUEST",
 	FETCH_CATEGORIES_SUCCESS: "FETCH_CATEGORIES_SUCCESS",
-	ERROR: "ERROR"
+	ERROR: "ERROR",
+	LOGIN_REQUEST: "LOGIN_REQUEST",
+	LOGIN_SUCCESS: "LOGIN_SUCCESS",
+	LOGIN_FAILURE: "LOGIN_FAILURE"
 };
 
 const ENDPOINTS = {
 	AUTH: "orange-es/anonymous",
+	FULL_AUTH: "orange-es/authenticate",
 	TAG: "tag",
 	EPG: "epg"
 };
@@ -143,3 +147,42 @@ export const fetchCategories = () => (dispatch) => {
 };
 
 /* FETCH CATEGORIES */
+
+/* LOGIN */
+const loginSuccess = ({sessionId, credentials}) => {
+	setAuthToken(sessionId);
+
+	return {
+		type: ACTION_TYPES.LOGIN_SUCCESS,
+		payload: {
+			sessionId,
+			...credentials
+		}
+	};
+};
+
+const loginFailure = (error) => ({
+	type: ACTION_TYPES.LOGIN_FAILURE,
+	payload: {
+		error
+	}
+});
+
+export const login = (credentials) => (dispatch) => {
+	dispatch({
+		type: ACTION_TYPES.LOGIN_REQUEST
+	});
+
+	const params = {
+		appId: APP_ID,
+		appVersion: APP_VERSION,
+		deviceIdentifier: "demo-test-device",
+		...credentials
+	};
+
+	return get(ENDPOINTS.FULL_AUTH, params)
+		.then((response) => dispatch(loginSuccess(response)))
+		.catch((error) => dispatch(loginFailure(error)));
+};
+
+/* LOGIN */

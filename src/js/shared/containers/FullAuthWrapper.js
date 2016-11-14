@@ -10,14 +10,20 @@ const FullAuthWrapper = (props) => {
 		...rest} = props;
 
 	return fullyAuthenticated ? (<Container component={Component} {...rest} />) : (<Redirect
-		to={{pathname: "/login"}}
+		to={{
+			pathname: "/login",
+			state: {
+				referer: props.location
+			}
+		}}
 	/>);
 };
 
 FullAuthWrapper.propTypes = {
 	fullyAuthenticated: PropTypes.bool.isRequired,
 	container: PropTypes.func.isRequired,
-	component: PropTypes.func.isRequired
+	component: PropTypes.func.isRequired,
+	location: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({fullyAuthenticated}) => ({fullyAuthenticated});
