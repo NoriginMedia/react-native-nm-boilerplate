@@ -19,11 +19,13 @@ const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
 
 	if (fadingIn) {
 		fadingStyle = {
+			zIndex: 2,
 			...absoluteFlex,
 			...floatFromRight(fader, screenWidth)
 		};
 	} else if (fadingOut) {
 		fadingStyle = {
+			zIndex: 1,
 			...absoluteFlex
 		};
 	}
@@ -35,6 +37,7 @@ const DetailsProgram = (props) => <View
 	style={{
 		...getFadingStyle(props)
 	}}
+	accessibilityLabel={"DETAILS"}
 >
 	<TopBar />
 	<View style={styles.content}>

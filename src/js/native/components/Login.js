@@ -22,11 +22,13 @@ const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
 
 	if (fadingIn) {
 		fadingStyle = {
+			zIndex: 2,
 			...absoluteFlex,
 			...floatFromTop(fader, screenHeight)
 		};
 	} else if (fadingOut) {
 		fadingStyle = {
+			zIndex: 1,
 			...absoluteFlex
 		};
 	}
@@ -78,7 +80,7 @@ class Login extends React.Component {
 			return (<Redirect to={{pathname: "/"}} />);
 		}
 
-		return (<View>
+		return (<View accessibilityLabel={"LOGIN"} >
 			<View>
 				<TextInput
 					style={styles.textInput}

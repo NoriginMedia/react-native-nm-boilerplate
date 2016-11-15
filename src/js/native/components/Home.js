@@ -23,11 +23,13 @@ const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
 
 	if (fadingIn) {
 		fadingStyle = {
+			zIndex: 2,
 			...absoluteFlex,
 			...floatFromBottom(fader, screenHeight)
 		};
 	} else if (fadingOut) {
 		fadingStyle = {
+			zIndex: 1,
 			...absoluteFlex
 		};
 	}
@@ -39,6 +41,7 @@ const Home = (props) => <View
 	style={{
 		...getFadingStyle(props)
 	}}
+	accessibilityLabel={"HOME"}
 >
 	<TopBar />
 	<ScrollView

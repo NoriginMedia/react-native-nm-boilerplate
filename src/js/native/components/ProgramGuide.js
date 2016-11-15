@@ -19,11 +19,13 @@ const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
 
 	if (fadingIn) {
 		fadingStyle = {
+			zIndex: 2,
 			...absoluteFlex,
 			...floatFromBottom(fader, screenHeight)
 		};
 	} else if (fadingOut) {
 		fadingStyle = {
+			zIndex: 1,
 			...absoluteFlex
 		};
 	}
@@ -35,6 +37,7 @@ const ProgramGuide = (props) => <View
 	style={{
 		...getFadingStyle(props)
 	}}
+	accessibilityLabel={"EPG"}
 >
 	<TopBar />
 	<View style={styles.content}>
