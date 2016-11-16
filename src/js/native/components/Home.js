@@ -6,9 +6,7 @@ import LiveChannel from "./LiveChannel";
 import Movie from "./Movie";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
-import {screenHeight} from "../utils/screen";
-import {absoluteFlex} from "../../shared/styles/layout";
-import {floatFromBottom} from "../styles/animations";
+import {staticBackground} from "../styles/animations";
 
 const styles = StyleSheet.create({
 	scrollView: {
@@ -16,32 +14,8 @@ const styles = StyleSheet.create({
 	}
 });
 
-const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
-	let fadingStyle = {
-		flex: 1
-	};
-
-	if (fadingIn) {
-		fadingStyle = {
-			zIndex: 2,
-			...absoluteFlex,
-			...floatFromBottom(fader, screenHeight)
-		};
-	} else if (fadingOut) {
-		fadingStyle = {
-			zIndex: 1,
-			...absoluteFlex
-		};
-	}
-
-	return fadingStyle;
-};
-
 const Home = (props) => <View
-	style={{
-		...getFadingStyle(props)
-	}}
-	accessibilityLabel={"HOME"}
+	style={props.isAnimating ? staticBackground : {flex: 1}}
 >
 	<TopBar />
 	<ScrollView
@@ -64,7 +38,7 @@ const Home = (props) => <View
 			items={category.contents}
 		/>)}
 	</ScrollView>
-	<BottomBar />
+	<BottomBar fullyAuthenticated={props.fullyAuthenticated} />
 </View>;
 
 Home.propTypes = {
@@ -76,9 +50,8 @@ Home.propTypes = {
 		title: PropTypes.string.isRequired,
 		contents: PropTypes.array.isRequired
 	})).isRequired,
-	fader: PropTypes.number.isRequired,
-	fadingIn: PropTypes.bool.isRequired,
-	fadingOut: PropTypes.bool.isRequired
+	isAnimating: PropTypes.bool.isRequired,
+	fullyAuthenticated: PropTypes.bool.isRequired
 };
 
 export default Home;

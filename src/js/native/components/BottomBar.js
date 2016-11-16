@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
 import {Link} from "react-router";
 
@@ -31,25 +31,40 @@ const pages = [
 	{
 		path: "/movies",
 		title: "VOD"
+	},
+	{
+		path: "/login",
+		title: "Login",
+		hideWhenAuthenticated: true
 	}
 ];
 
-const BottomBar = () => <View style={styles.bottomBar}>
-	{pages.map((page, index) => <Link
-		activeOnlyWhenExact
-		key={index}
-		to={{
-			pathname: page.path,
-			state: {from: "menu"}
-		}}
-	>{
-		({transition, isActive}) => <TouchableOpacity
-			onPress={transition}
-			style={styles.bottomBarButton}
-		>
-			<Text style={isActive ? {fontWeight: "bold"} : {}}>{page.title}</Text>
-		</TouchableOpacity>
-	}</Link>)}
+const BottomBar = (props) => <View style={styles.bottomBar}>
+	{pages.map((page, index) => {
+		if (page.hideWhenAuthenticated && props.fullyAuthenticated) {
+			return null;
+		}
+
+		return (<Link
+			activeOnlyWhenExact
+			key={index}
+			to={{
+				pathname: page.path,
+				state: {from: "menu"}
+			}}
+		>{
+			({transition, isActive}) => <TouchableOpacity
+				onPress={transition}
+				style={styles.bottomBarButton}
+			>
+				<Text style={isActive ? {fontWeight: "bold"} : {}}>{page.title}</Text>
+			</TouchableOpacity>
+		}</Link>);
+	})}
 </View>;
+
+BottomBar.propTypes = {
+	fullyAuthenticated: PropTypes.bool
+};
 
 export default BottomBar;

@@ -2,8 +2,6 @@ import React, {PropTypes} from "react";
 import {View, TextInput, TouchableOpacity, Text} from "react-native";
 import {Redirect} from "react-router";
 import TopBar from "./TopBar";
-import {screenHeight} from "../utils/screen";
-import {absoluteFlex} from "../../shared/styles/layout";
 import {floatFromTop} from "../styles/animations";
 
 const styles = {
@@ -13,27 +11,6 @@ const styles = {
 	textInput: {
 		height: 40
 	}
-};
-
-const getFadingStyle = ({fader, fadingIn, fadingOut}) => {
-	let fadingStyle = {
-		flex: 1
-	};
-
-	if (fadingIn) {
-		fadingStyle = {
-			zIndex: 2,
-			...absoluteFlex,
-			...floatFromTop(fader, screenHeight)
-		};
-	} else if (fadingOut) {
-		fadingStyle = {
-			zIndex: 1,
-			...absoluteFlex
-		};
-	}
-
-	return fadingStyle;
 };
 
 class Login extends React.Component {
@@ -80,7 +57,7 @@ class Login extends React.Component {
 			return (<Redirect to={{pathname: "/"}} />);
 		}
 
-		return (<View accessibilityLabel={"LOGIN"} >
+		return (<View>
 			<View>
 				<TextInput
 					style={styles.textInput}
@@ -110,9 +87,11 @@ class Login extends React.Component {
 
 	render() {
 		return (<View
-			style={{
-				...getFadingStyle(this.props)
-			}}
+			style={
+				this.props.isAnimating ?
+					floatFromTop(this.props.fader, true) :
+					{flex: 1}
+			}
 		>
 			<TopBar />
 			{this.renderContent()}
@@ -132,8 +111,7 @@ Login.propTypes = {
 		})
 	}).isRequired,
 	fader: PropTypes.number.isRequired,
-	fadingIn: PropTypes.bool.isRequired,
-	fadingOut: PropTypes.bool.isRequired
+	isAnimating: PropTypes.bool.isRequired
 };
 
 export default Login;

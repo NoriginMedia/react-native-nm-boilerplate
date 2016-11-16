@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 const Layout = () => <View style={styles.root}>
 	<StatusBar
 		barStyle={"light-content"}
-		backgroundColor={colors.darkBlue}
+		backgroundColor={colors.primary}
 	/>
 	<View style={styles.content}>
 		{createRoutes(routes)}

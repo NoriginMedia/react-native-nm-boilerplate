@@ -13,6 +13,6 @@ WatchLive.propTypes = {
 	component: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({fullyAuthenticated}) => ({fullyAuthenticated});
 
 export default connect(mapStateToProps, {})(WatchLive);

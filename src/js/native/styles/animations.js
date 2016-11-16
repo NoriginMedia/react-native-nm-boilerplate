@@ -1,6 +1,15 @@
+import {absoluteFlex} from "../../shared/styles/layout";
+import {screenHeight, screenWidth} from "../utils/screen";
+
 /* eslint-disable import/prefer-default-export */
 
-export const floatFromBottom = (fader, screenHeight) => ({
+const getZIndexedStyle = (isForeground) => ({
+	...absoluteFlex,
+	zIndex: isForeground ? 2 : 1
+});
+
+export const floatFromBottom = (fader, isForeground) => ({
+	...getZIndexedStyle(isForeground),
 	backgroundColor: "white",
 	transform: [
 		{
@@ -9,7 +18,8 @@ export const floatFromBottom = (fader, screenHeight) => ({
 	]
 });
 
-export const floatFromTop = (fader, screenHeight) => ({
+export const floatFromTop = (fader, isForeground) => ({
+	...getZIndexedStyle(isForeground),
 	backgroundColor: "white",
 	transform: [
 		{
@@ -18,7 +28,8 @@ export const floatFromTop = (fader, screenHeight) => ({
 	]
 });
 
-export const floatFromRight = (fader, screenWidth) => ({
+export const floatFromRight = (fader, isForeground) => ({
+	...getZIndexedStyle(isForeground),
 	backgroundColor: "white",
 	transform: [
 		{
@@ -26,3 +37,6 @@ export const floatFromRight = (fader, screenWidth) => ({
 		}
 	]
 });
+
+export const staticBackground = getZIndexedStyle(false);
+export const staticForeground = getZIndexedStyle(true);

@@ -3,7 +3,7 @@ import colors from "../../shared/styles/colors";
 
 const styles = {
 	topBar: {
-		backgroundColor: colors.darkBlue,
+		backgroundColor: colors.primary,
 		flexDirection: "row"
 	},
 	topBarText: {
