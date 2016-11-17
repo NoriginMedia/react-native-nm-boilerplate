@@ -32,6 +32,13 @@ function appReducer(state = initialState, action) {
 				password: action.payload.encrypted_password
 			});
 
+		case ACTION_TYPES.LOGOUT:
+			return Object.assign({}, state, {
+				fullyAuthenticated: false,
+				username: "",
+				password: ""
+			});
+
 		default:
 			return state;
 	}

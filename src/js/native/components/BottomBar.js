@@ -15,56 +15,38 @@ const styles = StyleSheet.create({
 	}
 });
 
-const pages = [
-	{
-		path: "/",
-		title: "Home"
-	},
-	{
-		path: "/tv",
-		title: "TV"
-	},
-	{
-		path: "/guide",
-		title: "EPG"
-	},
-	{
-		path: "/movies",
-		title: "VOD"
-	},
-	{
-		path: "/login",
-		title: "Login",
-		hideWhenAuthenticated: true
-	}
-];
+const renderLink = (path, title) => <Link
+	activeOnlyWhenExact
+	key={title}
+	to={{
+		pathname: path,
+		state: {from: "menu"}
+	}}
+>{
+	({transition, isActive}) => <TouchableOpacity
+		onPress={transition}
+		style={styles.bottomBarButton}
+	>
+		<Text style={isActive ? {fontWeight: "bold"} : {}}>{title}</Text>
+	</TouchableOpacity>
+}</Link>;
 
 const BottomBar = (props) => <View style={styles.bottomBar}>
-	{pages.map((page, index) => {
-		if (page.hideWhenAuthenticated && props.fullyAuthenticated) {
-			return null;
-		}
-
-		return (<Link
-			activeOnlyWhenExact
-			key={index}
-			to={{
-				pathname: page.path,
-				state: {from: "menu"}
-			}}
-		>{
-			({transition, isActive}) => <TouchableOpacity
-				onPress={transition}
-				style={styles.bottomBarButton}
-			>
-				<Text style={isActive ? {fontWeight: "bold"} : {}}>{page.title}</Text>
-			</TouchableOpacity>
-		}</Link>);
-	})}
+	{renderLink("/", "Home")}
+	{renderLink("/tv", "TV")}
+	{renderLink("/guide", "EPG")}
+	{renderLink("/movies", "VOD")}
+	{props.fullyAuthenticated ? <TouchableOpacity
+		onPress={props.logout}
+		style={styles.bottomBarButton}
+	>
+		<Text>{"Logout"}</Text>
+	</TouchableOpacity> : renderLink("/login", "Login")}
 </View>;
 
 BottomBar.propTypes = {
-	fullyAuthenticated: PropTypes.bool
+	fullyAuthenticated: PropTypes.bool.isRequired,
+	logout: PropTypes.func.isRequired
 };
 
 export default BottomBar;

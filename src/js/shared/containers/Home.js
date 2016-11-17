@@ -32,11 +32,10 @@ Home.propTypes = {
 	categories: PropTypes.array
 };
 
-const mapStateToProps = ({slides, channels, categories, fullyAuthenticated}) => ({
+const mapStateToProps = ({slides, channels, categories}) => ({
 	slides,
 	channels,
-	categories,
-	fullyAuthenticated
+	categories
 });
 
 export default connect(mapStateToProps, {

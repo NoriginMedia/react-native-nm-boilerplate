@@ -1,7 +1,8 @@
-import React, {PropTypes} from "react";
+import React from "react";
 import {View, Text, StyleSheet} from "react-native";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
+import BottomBarContainer from "../../shared/containers/BottomBar";
 
 const styles = StyleSheet.create({
 	content: {
@@ -9,16 +10,12 @@ const styles = StyleSheet.create({
 	}
 });
 
-const ProgramGuide = (props) => <View style={styles.content}>
+const ProgramGuide = () => <View style={styles.content}>
 	<TopBar />
 	<View style={styles.content}>
 		<Text style={styles.content}>{"EPG"}</Text>
 	</View>
-	<BottomBar fullyAuthenticated={props.fullyAuthenticated} />
+	<BottomBarContainer component={BottomBar} />
 </View>;
-
-ProgramGuide.propTypes = {
-	fullyAuthenticated: PropTypes.bool.isRequired
-};
 
 export default ProgramGuide;

@@ -2,6 +2,7 @@ import React, {PropTypes} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
+import BottomBarContainer from "../../shared/containers/BottomBar";
 import {staticBackground} from "../styles/animations";
 
 const styles = StyleSheet.create({
@@ -15,12 +16,11 @@ const WatchLive = (props) => <View style={props.isAnimating ? staticBackground :
 	<View style={styles.content}>
 		<Text style={styles.content}>{"Watch Live!"}</Text>
 	</View>
-	<BottomBar fullyAuthenticated={props.fullyAuthenticated} />
+	<BottomBarContainer component={BottomBar} />
 </View>;
 
 WatchLive.propTypes = {
-	isAnimating: PropTypes.bool.isRequired,
-	fullyAuthenticated: PropTypes.bool.isRequired
+	isAnimating: PropTypes.bool.isRequired
 };
 
 export default WatchLive;

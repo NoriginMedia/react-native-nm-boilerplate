@@ -15,7 +15,8 @@ export const ACTION_TYPES = {
 	ERROR: "ERROR",
 	LOGIN_REQUEST: "LOGIN_REQUEST",
 	LOGIN_SUCCESS: "LOGIN_SUCCESS",
-	LOGIN_FAILURE: "LOGIN_FAILURE"
+	LOGIN_FAILURE: "LOGIN_FAILURE",
+	LOGOUT: "LOGOUT"
 };
 
 const ENDPOINTS = {
@@ -186,3 +187,10 @@ export const login = (credentials) => (dispatch) => {
 };
 
 /* LOGIN */
+
+/* LOGOUT */
+export const logout = () => ({
+	type: ACTION_TYPES.LOGOUT
+});
+
+/* LOGOUT */

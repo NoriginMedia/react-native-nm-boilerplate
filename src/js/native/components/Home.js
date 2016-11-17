@@ -6,6 +6,7 @@ import LiveChannel from "./LiveChannel";
 import Movie from "./Movie";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
+import BottomBarContainer from "../../shared/containers/BottomBar";
 import {staticBackground} from "../styles/animations";
 
 const styles = StyleSheet.create({
@@ -38,7 +39,7 @@ const Home = (props) => <View
 			items={category.contents}
 		/>)}
 	</ScrollView>
-	<BottomBar fullyAuthenticated={props.fullyAuthenticated} />
+	<BottomBarContainer component={BottomBar} />
 </View>;
 
 Home.propTypes = {
@@ -50,8 +51,7 @@ Home.propTypes = {
 		title: PropTypes.string.isRequired,
 		contents: PropTypes.array.isRequired
 	})).isRequired,
-	isAnimating: PropTypes.bool.isRequired,
-	fullyAuthenticated: PropTypes.bool.isRequired
+	isAnimating: PropTypes.bool.isRequired
 };
 
 export default Home;
