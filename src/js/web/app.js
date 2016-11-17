@@ -5,7 +5,8 @@ import AuthWrapper from "../shared/containers/AuthWrapper";
 import Layout from "./components/Layout";
 import Loader from "./components/Loader";
 
-export default <Store>
+/* eslint-disable no-underscore-dangle */
+export default <Store composer={window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__}>
 	<HashRouter>
 		<AuthWrapper component={Layout} loader={Loader} />
 	</HashRouter>

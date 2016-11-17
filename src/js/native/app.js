@@ -5,7 +5,8 @@ import Layout from "./components/Layout";
 import Loader from "./components/Loader";
 import AuthWrapper from "../shared/containers/AuthWrapper";
 
-export default () => <Store>
+/* eslint-disable no-underscore-dangle */
+export default () => <Store composer={global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__}>
 	<MemoryRouter>
 		<AuthWrapper component={Layout} loader={Loader} />
 	</MemoryRouter>
