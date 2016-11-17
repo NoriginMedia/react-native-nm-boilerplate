@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 });
 
 const Slideshow = (props) => <View style={styles.container}>
-	<ScrollView horizontal showsHorizontalScrollIndicator={false} >
+	<ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false} >
 		{props.items.map((item, index) => <SlideshowItem key={index} {...item} />)}
 	</ScrollView>
 </View>;

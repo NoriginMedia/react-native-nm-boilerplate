@@ -29,8 +29,8 @@ const ENDPOINTS = {
 const ENDPOINT_DEFAULT_PARAMS = {
 	EPG: {
 		from: "now",
-		offset: "-1h",
-		duration: "16h",
+		offset: "-3h",
+		duration: "20h",
 		transform: "epg"
 	},
 	TAG: {

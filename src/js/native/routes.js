@@ -36,7 +36,6 @@ export default [
 		exactly: true,
 		container: WatchLiveContainer,
 		view: WatchLive,
-		authProtected: true,
 		animated: true
 	},
 	{

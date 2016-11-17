@@ -2,9 +2,14 @@ import React from "react";
 import {createStore, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
-import createLogger from "redux-logger";
 import reducer from "./reducer";
 
-const store = createStore(reducer, applyMiddleware(thunk, createLogger()));
+/* global __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ */
+const getStore = () => {
+	// Return composer or dummy function
+	const composeEnchancers = __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || ((middlewares) => middlewares);
 
-export default (props) => <Provider store={store}>{props.children}</Provider>;
+	return createStore(reducer, composeEnchancers(applyMiddleware(thunk)));
+};
+
+export default (props) => <Provider store={getStore()}>{props.children}</Provider>;
