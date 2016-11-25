@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {View, Text, ScrollView, StyleSheet} from "react-native";
+import {View, Text, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
 import {isArray, each} from "lodash";
 import moment from "moment";
 import TopBar from "./TopBar";
@@ -42,6 +42,14 @@ const styles = StyleSheet.create({
 	logos: {
 		width: 60,
 		paddingTop: 30
+	},
+	nowButton: {
+		position: "absolute",
+		width: 60,
+		height: 30,
+		left: 0,
+		top: 0,
+		backgroundColor: "white"
 	},
 	logo: {
 		height: 60,
@@ -137,6 +145,8 @@ class ProgramGuide extends React.Component {
 			timelinePosition: 0
 		};
 
+		this.scrollToNow = this.scrollToNow.bind(this);
+
 		this.updateTime = this.updateTime.bind(this);
 		this.timer = setInterval(this.updateTime, 3000);
 	}
@@ -165,6 +175,12 @@ class ProgramGuide extends React.Component {
 
 		this.setState({
 			timelinePosition
+		});
+	}
+
+	scrollToNow() {
+		this.setState({
+			scrollPosition: ProgramGuide.getCurrentScrollPosition(this.state.minTime, TIMELINE_DISPLAY_OFFSET)
 		});
 	}
 
@@ -210,29 +226,36 @@ class ProgramGuide extends React.Component {
 
 		return (<View style={styles.content}>
 			<TopBar />
-			<ScrollView style={styles.epgVerticalScroll}>
-				<View style={styles.epgContainer}>
-					{this.renderLogos()}
-					<View style={styles.epgHorizontalScrollWrapper}>
-						<ScrollView
-							horizontal
-							style={styles.epgHorizontalScroll}
-							contentOffset={{
-								x: this.state.scrollPosition,
-								y: 0
-							}}
-						>
-							{this.renderChannelList(minTime, maxTime)}
-							<View
-								style={[styles.timelineMarker, {
-									height: (this.props.channels.length * 60) + 30,
-									left: this.state.timelinePosition
-								}]}
-							/>
-						</ScrollView>
+			<View style={styles.content}>
+				<ScrollView style={styles.epgVerticalScroll}>
+					<View style={styles.epgContainer}>
+						{this.renderLogos()}
+						<View style={styles.epgHorizontalScrollWrapper}>
+							<ScrollView
+								horizontal
+								style={styles.epgHorizontalScroll}
+								contentOffset={{
+									x: this.state.scrollPosition,
+									y: 0
+								}}
+							>
+								{this.renderChannelList(minTime, maxTime)}
+								<View
+									style={[styles.timelineMarker, {
+										height: (this.props.channels.length * 60) + 30,
+										left: this.state.timelinePosition
+									}]}
+								/>
+							</ScrollView>
+						</View>
 					</View>
+				</ScrollView>
+				<View style={styles.nowButton}>
+					<TouchableOpacity onPress={this.scrollToNow}>
+						<Text>{"NOW"}</Text>
+					</TouchableOpacity>
 				</View>
-			</ScrollView>
+			</View>
 			<BottomBarContainer component={BottomBar} />
 		</View>);
 	}
