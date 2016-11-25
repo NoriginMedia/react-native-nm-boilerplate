@@ -1,18 +1,31 @@
 import React, {PropTypes} from "react";
 import {connect} from "react-redux";
+import {
+	fetchChannels
+} from "../actions";
 
-const ProgramGuide = (props) => {
-	const {component: Component, ...rest} = props;
+class ProgramGuide extends React.Component {
+	componentDidMount() {
+		this.props.fetchChannels();
+	}
 
-	return (
-		<Component {...rest} />
-	);
-};
+	render() {
+		const {component: Component, ...rest} = this.props;
+
+		return (
+			<Component {...rest} />
+		);
+	}
+}
 
 ProgramGuide.propTypes = {
-	component: PropTypes.func.isRequired
+	component: PropTypes.func.isRequired,
+	fetchChannels: PropTypes.func,
+	channels: PropTypes.array
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({channels}) => ({channels});
 
-export default connect(mapStateToProps, {})(ProgramGuide);
+export default connect(mapStateToProps, {
+	fetchChannels
+})(ProgramGuide);

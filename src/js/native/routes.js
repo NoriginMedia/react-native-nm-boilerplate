@@ -21,25 +21,22 @@ export default [
 		pattern: "/login",
 		exactly: true,
 		container: LoginContainer,
-		view: Login,
-		animated: true
+		view: Login
 	},
 	{
-		pattern: "/",
+		pattern: "/guide",
 		exactly: true,
 		container: HomeContainer,
-		view: Home,
-		animated: true
+		view: Home
 	},
 	{
 		pattern: "/tv",
 		exactly: true,
 		container: WatchLiveContainer,
-		view: WatchLive,
-		animated: true
+		view: WatchLive
 	},
 	{
-		pattern: "/guide",
+		pattern: "/",
 		exactly: true,
 		container: ProgramGuideContainer,
 		view: ProgramGuide
@@ -54,7 +51,6 @@ export default [
 		pattern: "/details/program",
 		exactly: true,
 		container: DetailsProgramContainer,
-		view: DetailsProgram,
-		animated: true
+		view: DetailsProgram
 	}
 ];

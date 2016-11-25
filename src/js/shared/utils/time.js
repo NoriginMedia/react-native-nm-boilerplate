@@ -1,6 +1,8 @@
 import moment from "moment";
 
 /* eslint-disable import/prefer-default-export */
+export const MILISECONDS_IN_HOUR = 60 * 60 * 1000;
+
 export const getCurrentTimestamp = () => moment().valueOf();
 
 export const timestampToTimeString = (timestamp) => moment(timestamp).format("HH:mm");
@@ -19,3 +21,10 @@ export const timePercentElapsedBetween = (start, end) => {
 
 	return Math.floor((currentPosition * 100) / duration);
 };
+
+export const hourIntervalsBetween = (start, end) => Math.ceil(Math.max((end - start), 0) / MILISECONDS_IN_HOUR);
+
+export const timeAfterHours = (current, hours) => moment(current).add(hours, "hours").valueOf();
+
+export const timeIntervalWidthPerHour = (start, end, oneHourWidth) => Math.round(
+	(Math.max((end - start), 0) * oneHourWidth) / MILISECONDS_IN_HOUR);
