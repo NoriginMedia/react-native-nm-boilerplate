@@ -7,6 +7,8 @@ export const getCurrentTimestamp = () => moment().valueOf();
 
 export const timestampToTimeString = (timestamp) => moment(timestamp).format("HH:mm");
 
+export const timestampToDayString = (timestamp) => moment(timestamp).format("D MMM");
+
 export const timePercentElapsedBetween = (start, end) => {
 	if (isNaN(start) || isNaN(end)) {
 		return 0;

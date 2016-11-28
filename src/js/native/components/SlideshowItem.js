@@ -40,9 +40,10 @@ const SlideshowItem = (props) => {
 				<Link
 					to={{
 						pathname: "/details/program",
-						state: {from: "home"},
+						state: {from: "/"},
 						query: {
-							programInfoUri: props.uri
+							channelId: props.channelInfo.channelId,
+							programId: props.id
 						}
 					}}
 				>{
@@ -62,7 +63,10 @@ SlideshowItem.propTypes = {
 	images: PropTypes.shape({
 		CarouselLandscapeHeader: PropTypes.string
 	}).isRequired,
-	uri: PropTypes.string.isRequired
+	id: PropTypes.string.isRequired,
+	channelInfo: PropTypes.shape({
+		channelId: PropTypes.string.isRequired
+	}).isRequired
 };
 
 export default SlideshowItem;

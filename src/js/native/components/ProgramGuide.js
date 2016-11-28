@@ -1,5 +1,6 @@
 import React, {PropTypes} from "react";
 import {View, Text, ScrollView, StyleSheet, TouchableOpacity} from "react-native";
+import {Link} from "react-router";
 import {isArray, each} from "lodash";
 import moment from "moment";
 import TopBar from "./TopBar";
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: "black",
 		overflow: "hidden",
-		maxHeight: 60
+		height: 60
 	}
 });
 
@@ -206,17 +207,34 @@ class ProgramGuide extends React.Component {
 				key={index}
 				style={styles.channelRow}
 			>
-				{isArray(channel.schedules) ? channel.schedules.map((program, programIndex) => <View
+				{isArray(channel.schedules) ? channel.schedules.map((program, programIndex) => <Link
 					key={programIndex}
-					style={[styles.program, {
-						width: timeIntervalWidthPerHour(program.start, program.end, PIXELS_PER_HOUR),
-						marginLeft: (programIndex === 0 && program.start > minTime) ?
-							timeIntervalWidthPerHour(minTime, program.start, PIXELS_PER_HOUR) : 0
-					}]}
-				>
-					<Text>{program.title}</Text>
-					<Text>{`${timestampToTimeString(program.start)} - ${timestampToTimeString(program.end)}`}</Text>
-				</View>) : null}
+					to={{
+						pathname: "/details/program",
+						state: {from: "/guide"},
+						query: {
+							channelId: channel.id,
+							programId: program.id
+						}
+					}}
+				>{
+					({transition}) => <TouchableOpacity
+						onPress={transition}
+					>
+						<View
+							style={[styles.program, {
+								width: timeIntervalWidthPerHour(program.start, program.end, PIXELS_PER_HOUR),
+								marginLeft: (programIndex === 0 && program.start > minTime) ?
+									timeIntervalWidthPerHour(minTime, program.start, PIXELS_PER_HOUR) : 0
+							}]}
+						>
+							<Text>{program.title}</Text>
+							<Text>
+								{`${timestampToTimeString(program.start)} - ${timestampToTimeString(program.end)}`}
+							</Text>
+						</View>
+					</TouchableOpacity>
+				}</Link>) : null}
 			</View>)}
 		</View>);
 	}
@@ -271,6 +289,7 @@ ProgramGuide.propTypes = {
 		schedules: PropTypes.arrayOf(
 			PropTypes.shape({
 				title: PropTypes.string.isRequired,
+				id: PropTypes.string.isRequired,
 				start: PropTypes.number.isRequired,
 				end: PropTypes.number.isRequired
 			})

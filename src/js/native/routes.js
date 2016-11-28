@@ -24,7 +24,7 @@ export default [
 		view: Login
 	},
 	{
-		pattern: "/guide",
+		pattern: "/",
 		exactly: true,
 		container: HomeContainer,
 		view: Home
@@ -36,7 +36,7 @@ export default [
 		view: WatchLive
 	},
 	{
-		pattern: "/",
+		pattern: "/guide",
 		exactly: true,
 		container: ProgramGuideContainer,
 		view: ProgramGuide

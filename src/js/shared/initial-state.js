@@ -6,5 +6,6 @@ export default {
 	encrypted_password: "",
 	slides: [],
 	channels: [],
-	categories: []
+	categories: [],
+	programs: {}
 };

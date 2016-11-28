@@ -39,6 +39,17 @@ function appReducer(state = initialState, action) {
 				password: ""
 			});
 
+		case ACTION_TYPES.FETCH_PROGRAM_DETAILS_SUCCESS: {
+			const {id, ...rest} = action.payload.details && action.payload.details[0];
+
+			return Object.assign({}, state, {
+				programs: {
+					...state.programs,
+					[id]: rest
+				}
+			});
+		}
+
 		default:
 			return state;
 	}

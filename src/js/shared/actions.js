@@ -16,7 +16,9 @@ export const ACTION_TYPES = {
 	LOGIN_REQUEST: "LOGIN_REQUEST",
 	LOGIN_SUCCESS: "LOGIN_SUCCESS",
 	LOGIN_FAILURE: "LOGIN_FAILURE",
-	LOGOUT: "LOGOUT"
+	LOGOUT: "LOGOUT",
+	FETCH_PROGRAM_DETAILS_REQUEST: "FETCH_PROGRAM_DETAILS_REQUEST",
+	FETCH_PROGRAM_DETAILS_SUCCESS: "FETCH_PROGRAM_DETAILS_SUCCESS"
 };
 
 const ENDPOINTS = {
@@ -194,3 +196,24 @@ export const logout = () => ({
 });
 
 /* LOGOUT */
+
+/* FETCH PROGRAM DETAILS */
+/* eslint-disable id-length */
+const fetchProgramDetailsSuccess = (details) => ({
+	type: ACTION_TYPES.FETCH_PROGRAM_DETAILS_SUCCESS,
+	payload: {
+		details
+	}
+});
+
+export const fetchProgramDetails = (channelId, programId) => (dispatch) => {
+	dispatch({
+		type: ACTION_TYPES.FETCH_PROGRAM_DETAILS_REQUEST
+	});
+
+	return get(`channel/${channelId}/program/${programId}`)
+		.then((details) => dispatch(fetchProgramDetailsSuccess(details)))
+		.catch((error) => dispatch(generalError(ACTION_TYPES.FETCH_PROGRAM_DETAILS_REQUEST, error)));
+};
+
+/* FETCH PROGRAM DETAILS */
