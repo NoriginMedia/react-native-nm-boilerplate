@@ -7,5 +7,6 @@ export default {
 	slides: [],
 	channels: [],
 	categories: [],
-	programs: {}
+	programs: {},
+	channelStreamUrl: null
 };

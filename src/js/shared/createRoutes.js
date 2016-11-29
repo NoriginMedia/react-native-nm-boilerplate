@@ -9,7 +9,7 @@ export default (routeConfigs) => routeConfigs.map((routeConfig, index) => {
 
 	let MatchingComponent = (props) => <Container component={View} {...props} />;
 
-	if (routeConfig.authProtected) {
+	if (routeConfig.secure) {
 		MatchingComponent = (props) => <FullAuthWrapper
 			container={Container}
 			component={View}

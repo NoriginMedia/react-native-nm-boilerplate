@@ -13,7 +13,11 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		maxWidth: screenWidth * 0.45,
-		fontWeight: "bold"
+		fontWeight: "bold",
+		color: "white"
+	},
+	duration: {
+		color: "white"
 	}
 });
 
@@ -28,7 +32,7 @@ const Movie = (props) => {
 			source={imageUrl}
 		/>
 		<Text style={styles.title}>{props.title}</Text>
-		<Text>{duration}</Text>
+		<Text style={styles.duration}>{duration}</Text>
 	</View>);
 };
 

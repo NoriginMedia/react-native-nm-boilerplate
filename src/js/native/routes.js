@@ -33,7 +33,8 @@ export default [
 		pattern: "/tv",
 		exactly: true,
 		container: WatchLiveContainer,
-		view: WatchLive
+		view: WatchLive,
+		secure: true
 	},
 	{
 		pattern: "/guide",

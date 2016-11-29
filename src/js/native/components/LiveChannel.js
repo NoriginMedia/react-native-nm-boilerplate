@@ -1,19 +1,22 @@
 import React, {PropTypes} from "react";
 import {StyleSheet, TouchableOpacity, View, Text} from "react-native";
 import {Link} from "react-router";
-import {screenWidth, screenHeight} from "../utils/screen";
 import Image from "./Image";
 import {pickCurrentProgram} from "../../shared/utils/schedule";
 import {timestampToTimeString, timePercentElapsedBetween} from "../../shared/utils/time";
 
 const styles = StyleSheet.create({
 	content: {
-		flex: 1
+		width: 100,
+		maxHeight: 120
 	},
 	image: {
-		width: screenWidth * 0.25,
-		height: screenHeight * 0.1,
+		width: 80,
+		height: 60,
 		backgroundColor: "black"
+	},
+	text: {
+		color: "white"
 	}
 });
 
@@ -27,12 +30,18 @@ class LiveChannel extends React.Component {
 
 		this.updateCurrentProgram = this.updateCurrentProgram.bind(this);
 		this.timer = setInterval(this.updateCurrentProgram, 1000);
+
+		this.onImagePress = this.onImagePress.bind(this);
 	}
 
 	componentWillUnmount() {
 		if (this.timer) {
 			clearInterval(this.timer);
 		}
+	}
+
+	onImagePress() {
+		this.props.onPress(this.props.id);
 	}
 
 	updateCurrentProgram() {
@@ -53,33 +62,46 @@ class LiveChannel extends React.Component {
 
 	renderOngoingProgram() {
 		return this.state.program ? <View>
-			<Text>{this.state.program.title}</Text>
-			<Text>{this.state.program.time}</Text>
-			<Text>{this.state.program.elapsedPercent}</Text>
+			<Text style={styles.text}>{this.state.program.title}</Text>
+			<Text style={styles.text}>{this.state.program.time}</Text>
+			<Text style={styles.text}>{this.state.program.elapsedPercent}</Text>
 		</View> : <Text>{"No Program"}</Text>;
 	}
 
-	render() {
+	renderChannelLogo() {
 		const imageUrl = this.props.images.LOGO;
+		const logo = (<Image
+			style={styles.image}
+			resizeMode={"cover"}
+			source={imageUrl}
+		/>);
 
-		return (<View style={styles.content}>
-			<Link
+		if (this.props.isLink) {
+			return (<Link
 				to={{
 					pathname: "/tv",
-					state: {from: "home"},
+					state: {from: this.props.linkReferer || ""},
 					query: {channelId: this.props.id}
 				}}
 			>{
 				({transition}) => <TouchableOpacity
 					onPress={transition}
 				>
-					<Image
-						style={styles.image}
-						resizeMode={"cover"}
-						source={imageUrl}
-					/>
+					{logo}
 				</TouchableOpacity>
-			}</Link>
+			}</Link>);
+		}
+
+		return (<TouchableOpacity
+			onPress={this.onImagePress}
+		>
+			{logo}
+		</TouchableOpacity>);
+	}
+
+	render() {
+		return (<View style={[styles.content, this.props.style || {}]}>
+			{this.renderChannelLogo()}
 			{this.renderOngoingProgram()}
 		</View>);
 	}
@@ -97,7 +119,18 @@ LiveChannel.propTypes = {
 			start: PropTypes.number.isRequired,
 			end: PropTypes.number.isRequired
 		})
-	)
+	),
+	isLink: PropTypes.bool,
+	linkReferer: PropTypes.string,
+
+	/* invoked only if item is not a Link */
+	onPress: PropTypes.func,
+	style: PropTypes.object
+};
+
+/* eslint-disable no-empty-function */
+LiveChannel.defaultProps = {
+	onPress: () => {}
 };
 
 export default LiveChannel;

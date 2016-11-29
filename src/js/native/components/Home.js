@@ -1,17 +1,19 @@
 import React, {PropTypes} from "react";
 import {View, ScrollView, StyleSheet} from "react-native";
 import Slideshow from "./Slideshow";
-import CategorySlider from "./CategorySlider";
+import Category from "./Category";
 import LiveChannel from "./LiveChannel";
 import Movie from "./Movie";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import BottomBarContainer from "../../shared/containers/BottomBar";
 import {staticBackground} from "../styles/animations";
+import colors from "../../shared/styles/colors";
 
 const styles = StyleSheet.create({
 	scrollView: {
-		flex: 1
+		flex: 1,
+		backgroundColor: colors.background
 	}
 });
 
@@ -26,17 +28,21 @@ const Home = (props) => <View
 		<Slideshow
 			items={props.slides.length === 1 ? props.slides[0].contents : []}
 		/>
-		<CategorySlider
+		<Category
 			key={"channels"}
 			title={"Channels"}
 			itemComponent={LiveChannel}
 			items={props.channels}
+			itemsAreLinks
+			itemLinkReferer={"home"}
+			horizontalScroll
 		/>
-		{props.categories.map((category, index) => <CategorySlider
+		{props.categories.map((category, index) => <Category
 			key={index}
 			title={category.title}
 			itemComponent={Movie}
 			items={category.contents}
+			horizontalScroll
 		/>)}
 	</ScrollView>
 	<BottomBarContainer component={BottomBar} />

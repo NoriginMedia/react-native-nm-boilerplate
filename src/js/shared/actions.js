@@ -18,7 +18,9 @@ export const ACTION_TYPES = {
 	LOGIN_FAILURE: "LOGIN_FAILURE",
 	LOGOUT: "LOGOUT",
 	FETCH_PROGRAM_DETAILS_REQUEST: "FETCH_PROGRAM_DETAILS_REQUEST",
-	FETCH_PROGRAM_DETAILS_SUCCESS: "FETCH_PROGRAM_DETAILS_SUCCESS"
+	FETCH_PROGRAM_DETAILS_SUCCESS: "FETCH_PROGRAM_DETAILS_SUCCESS",
+	FETCH_CHANNEL_STREAM_REQUEST: "FETCH_CHANNEL_STREAM_REQUEST",
+	FETCH_CHANNEL_STREAM_SUCCESS: "FETCH_CHANNEL_STREAM_SUCCESS"
 };
 
 const ENDPOINTS = {
@@ -217,3 +219,23 @@ export const fetchProgramDetails = (channelId, programId) => (dispatch) => {
 };
 
 /* FETCH PROGRAM DETAILS */
+
+/* FETCH CHANNEL STREAM */
+const fetchChannelStreamSuccess = (channelStreamUrl) => ({
+	type: ACTION_TYPES.FETCH_CHANNEL_STREAM_SUCCESS,
+	payload: {
+		channelStreamUrl
+	}
+});
+
+export const fetchChannelStream = (channelId) => (dispatch) => {
+	dispatch({
+		type: ACTION_TYPES.FETCH_CHANNEL_STREAM_REQUEST
+	});
+
+	return get(`channel/${channelId}/stream`)
+		.then((channelStreamUrl) => dispatch(fetchChannelStreamSuccess(channelStreamUrl)))
+		.catch((error) => dispatch(generalError(ACTION_TYPES.FETCH_CHANNEL_STREAM_REQUEST, error)));
+};
+
+/* FETCH CHANNEL STREAM */

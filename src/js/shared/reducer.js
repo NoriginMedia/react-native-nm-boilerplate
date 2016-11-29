@@ -50,6 +50,11 @@ function appReducer(state = initialState, action) {
 			});
 		}
 
+		case ACTION_TYPES.FETCH_CHANNEL_STREAM_SUCCESS:
+			return Object.assign({}, state, {
+				channelStreamUrl: action.payload.channelStreamUrl
+			});
+
 		default:
 			return state;
 	}
