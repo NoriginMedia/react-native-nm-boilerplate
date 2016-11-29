@@ -8,5 +8,5 @@ export default {
 	channels: [],
 	categories: [],
 	programs: {},
-	channelStreamUrl: null
+	channelStreamUrl: ""
 };

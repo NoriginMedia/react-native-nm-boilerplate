@@ -1,5 +1,9 @@
 import React, {PropTypes} from "react";
 import {View, Text, StyleSheet} from "react-native";
+/* eslint-disable */
+import Video from "react-native-video";
+/* eslint-enable */
+import {isEmpty} from "lodash";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import BottomBarContainer from "../../shared/containers/BottomBar";
@@ -7,6 +11,7 @@ import {staticBackground} from "../styles/animations";
 import colors from "../../shared/styles/colors";
 import Category from "./Category";
 import LiveChannel from "./LiveChannel";
+import {screenWidth} from "../utils/screen";
 
 const styles = StyleSheet.create({
 	content: {
@@ -18,8 +23,12 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "space-around"
 	},
-	player: {
+	playerText: {
 		color: "white"
+	},
+	player: {
+		height: 300,
+		width: screenWidth
 	},
 	channelsWrapper: {
 		flex: 1
@@ -30,7 +39,10 @@ const WatchLive = (props) => <View style={props.isAnimating ? staticBackground :
 	<TopBar />
 	<View style={styles.content}>
 		<View style={styles.playerWrapper}>
-			<Text style={styles.player}>{"Player"}</Text>
+			{!isEmpty(props.channelStreamUrl) ? <Video
+				source={{uri: "https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8"}}
+				style={styles.player}
+			/> : <Text style={styles.playerText}>{"No source selected..."}</Text>}
 		</View>
 		<View style={styles.channelsWrapper}>
 			<Category
