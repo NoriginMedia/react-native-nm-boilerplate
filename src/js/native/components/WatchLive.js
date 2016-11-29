@@ -42,7 +42,7 @@ const WatchLive = (props) => <View style={props.isAnimating ? staticBackground :
 			{!isEmpty(props.channelStreamUrl) ? <Video
 				source={{uri: "https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8"}}
 				style={styles.player}
-			/> : <Text style={styles.playerText}>{"No source selected..."}</Text>}
+			/> : <Text style={styles.playerText}>{"Loading..."}</Text>}
 		</View>
 		<View style={styles.channelsWrapper}>
 			<Category

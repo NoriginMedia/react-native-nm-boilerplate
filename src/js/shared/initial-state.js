@@ -8,5 +8,6 @@ export default {
 	channels: [],
 	categories: [],
 	programs: {},
+	movies: {},
 	channelStreamUrl: ""
 };

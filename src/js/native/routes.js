@@ -16,6 +16,9 @@ import Movies from "./components/Movies";
 import DetailsProgramContainer from "../shared/containers/DetailsProgram";
 import DetailsProgram from "./components/DetailsProgram";
 
+import DetailsMovieContainer from "../shared/containers/DetailsMovie";
+import DetailsMovie from "./components/DetailsMovie";
+
 export default [
 	{
 		pattern: "/login",
@@ -53,5 +56,11 @@ export default [
 		exactly: true,
 		container: DetailsProgramContainer,
 		view: DetailsProgram
+	},
+	{
+		pattern: "/details/movie",
+		exactly: true,
+		container: DetailsMovieContainer,
+		view: DetailsMovie
 	}
 ];

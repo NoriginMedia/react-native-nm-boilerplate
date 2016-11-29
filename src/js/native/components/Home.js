@@ -34,7 +34,7 @@ const Home = (props) => <View
 			itemComponent={LiveChannel}
 			items={props.channels}
 			itemsAreLinks
-			itemLinkReferer={"home"}
+			itemLinkReferer={"/"}
 			horizontalScroll
 		/>
 		{props.categories.map((category, index) => <Category
@@ -42,6 +42,8 @@ const Home = (props) => <View
 			title={category.title}
 			itemComponent={Movie}
 			items={category.contents}
+			itemsAreLinks
+			itemLinkReferer={"/"}
 			horizontalScroll
 		/>)}
 	</ScrollView>

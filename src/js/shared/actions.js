@@ -20,7 +20,9 @@ export const ACTION_TYPES = {
 	FETCH_PROGRAM_DETAILS_REQUEST: "FETCH_PROGRAM_DETAILS_REQUEST",
 	FETCH_PROGRAM_DETAILS_SUCCESS: "FETCH_PROGRAM_DETAILS_SUCCESS",
 	FETCH_CHANNEL_STREAM_REQUEST: "FETCH_CHANNEL_STREAM_REQUEST",
-	FETCH_CHANNEL_STREAM_SUCCESS: "FETCH_CHANNEL_STREAM_SUCCESS"
+	FETCH_CHANNEL_STREAM_SUCCESS: "FETCH_CHANNEL_STREAM_SUCCESS",
+	FETCH_MOVIE_DETAILS_REQUEST: "FETCH_MOVIE_DETAILS_REQUEST",
+	FETCH_MOVIE_DETAILS_SUCCESS: "FETCH_MOVIE_DETAILS_SUCCESS",
 };
 
 const ENDPOINTS = {
@@ -239,3 +241,24 @@ export const fetchChannelStream = (channelId) => (dispatch) => {
 };
 
 /* FETCH CHANNEL STREAM */
+
+/* FETCH PROGRAM DETAILS */
+/* eslint-disable id-length */
+const fetchMovieDetailsSuccess = (details) => ({
+	type: ACTION_TYPES.FETCH_MOVIE_DETAILS_SUCCESS,
+	payload: {
+		details
+	}
+});
+
+export const fetchMovieDetails = (movieId, movieType) => (dispatch) => {
+	dispatch({
+		type: ACTION_TYPES.FETCH_MOVIE_DETAILS_REQUEST
+	});
+
+	return get(`${movieType}/${movieId}`)
+		.then((details) => dispatch(fetchMovieDetailsSuccess(details)))
+		.catch((error) => dispatch(generalError(ACTION_TYPES.FETCH_MOVIE_DETAILS_REQUEST, error)));
+};
+
+/* FETCH PROGRAM DETAILS */

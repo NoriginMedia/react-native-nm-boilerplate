@@ -80,7 +80,7 @@ class LiveChannel extends React.Component {
 			return (<Link
 				to={{
 					pathname: "/tv",
-					state: {from: this.props.linkReferer || ""},
+					state: {from: this.props.linkReferer || "/"},
 					query: {channelId: this.props.id}
 				}}
 			>{
@@ -124,7 +124,7 @@ LiveChannel.propTypes = {
 	linkReferer: PropTypes.string,
 
 	/* invoked only if item is not a Link */
-	onPress: PropTypes.func,
+	onPress: PropTypes.func.isRequired,
 	style: PropTypes.object
 };
 
