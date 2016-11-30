@@ -51,7 +51,7 @@ const BottomBar = (props) => <View style={styles.bottomBar}>
 		onPress={props.logout}
 		style={styles.bottomBarButton}
 	>
-		<Icon name={"exit-to-app"} />
+		<Icon style={styles.icon} name={"exit-to-app"} />
 	</TouchableOpacity> : renderLink("/login", "account-box")}
 </View>;
 
