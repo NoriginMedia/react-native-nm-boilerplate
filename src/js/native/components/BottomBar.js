@@ -1,23 +1,34 @@
 import React, {PropTypes} from "react";
 import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
 import {Link} from "react-router";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import colors from "../../shared/styles/colors";
 
 const styles = StyleSheet.create({
 	bottomBar: {
 		height: 50,
 		flexDirection: "row",
-		alignItems: "center"
+		alignItems: "center",
+		backgroundColor: colors.primary
 	},
 	bottomBarButton: {
 		alignItems: "center",
 		justifyContent: "center",
 		flex: 1
+	},
+	icon: {
+		fontSize: 30,
+		color: "white"
+	},
+	iconActive: {
+		fontSize: 30,
+		color: colors.accent
 	}
 });
 
-const renderLink = (path, title) => <Link
+const renderLink = (path, icon) => <Link
 	activeOnlyWhenExact
-	key={title}
+	key={icon}
 	to={{
 		pathname: path,
 		state: {from: "menu"}
@@ -27,21 +38,21 @@ const renderLink = (path, title) => <Link
 		onPress={transition}
 		style={styles.bottomBarButton}
 	>
-		<Text style={isActive ? {fontWeight: "bold"} : {}}>{title}</Text>
+		<Icon style={isActive ? styles.iconActive : styles.icon} name={icon} />
 	</TouchableOpacity>
 }</Link>;
 
 const BottomBar = (props) => <View style={styles.bottomBar}>
-	{renderLink("/", "Home")}
-	{renderLink("/tv", "TV")}
-	{renderLink("/guide", "EPG")}
-	{renderLink("/movies", "VOD")}
+	{renderLink("/", "home")}
+	{renderLink("/tv", "tv")}
+	{renderLink("/guide", "view-list")}
+	{renderLink("/movies", "theaters")}
 	{props.fullyAuthenticated ? <TouchableOpacity
 		onPress={props.logout}
 		style={styles.bottomBarButton}
 	>
-		<Text>{"Logout"}</Text>
-	</TouchableOpacity> : renderLink("/login", "Login")}
+		<Icon name={"exit-to-app"} />
+	</TouchableOpacity> : renderLink("/login", "account-box")}
 </View>;
 
 BottomBar.propTypes = {
