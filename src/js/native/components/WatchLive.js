@@ -12,6 +12,7 @@ import colors from "../../shared/styles/colors";
 import Category from "./Category";
 import LiveChannel from "./LiveChannel";
 import {screenWidth} from "../utils/screen";
+import {DUMMY_STREAM_URL} from "../../shared/config";
 
 const styles = StyleSheet.create({
 	content: {
@@ -40,7 +41,7 @@ const WatchLive = (props) => <View style={props.isAnimating ? staticBackground :
 	<View style={styles.content}>
 		<View style={styles.playerWrapper}>
 			{!isEmpty(props.channelStreamUrl) ? <Video
-				source={{uri: "https://mnmedias.api.telequebec.tv/m3u8/29880.m3u8"}}
+				source={{uri: props.channelStreamUrl.match(/^https?:/) ? props.channelStreamUrl : DUMMY_STREAM_URL}}
 				style={styles.player}
 			/> : <Text style={styles.playerText}>{"Loading..."}</Text>}
 		</View>

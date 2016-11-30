@@ -65,7 +65,7 @@ class LiveChannel extends React.Component {
 			<Text style={styles.text}>{this.state.program.title}</Text>
 			<Text style={styles.text}>{this.state.program.time}</Text>
 			<Text style={styles.text}>{this.state.program.elapsedPercent}</Text>
-		</View> : <Text>{"No Program"}</Text>;
+		</View> : <Text style={styles.text}>{"No Program"}</Text>;
 	}
 
 	renderChannelLogo() {

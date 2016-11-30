@@ -10,7 +10,7 @@ class WatchLive extends React.Component {
 	}
 
 	componentDidMount() {
-		let {channelId} = this.props.location.query;
+		let {channelId} = this.props.location.query || {};
 
 		if (!channelId) {
 			channelId = this.props.channels.length ? this.props.channels[0].id : null;

@@ -58,7 +58,7 @@ function appReducer(state = initialState, action) {
 
 		case ACTION_TYPES.FETCH_CHANNEL_STREAM_SUCCESS:
 			return Object.assign({}, state, {
-				channelStreamUrl: action.payload.channelStreamUrl
+				channelStreamUrl: decodeURIComponent(action.payload.channelStreamUrl)
 			});
 
 		case ACTION_TYPES.FETCH_MOVIE_DETAILS_SUCCESS: {
@@ -75,6 +75,16 @@ function appReducer(state = initialState, action) {
 				}
 			});
 		}
+
+		case ACTION_TYPES.FETCH_MOVIE_STREAM_REQUEST:
+			return Object.assign({}, state, {
+				movieStreamUrl: ""
+			});
+
+		case ACTION_TYPES.FETCH_MOVIE_STREAM_SUCCESS:
+			return Object.assign({}, state, {
+				movieStreamUrl: decodeURIComponent(action.payload.movieStreamUrl)
+			});
 
 		default:
 			return state;

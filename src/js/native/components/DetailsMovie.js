@@ -89,9 +89,12 @@ const DetailsProgram = (props) => {
 						<View style={styles.button}>
 							<Link
 								to={{
-									pathname: "/tv",
+									pathname: "/movies",
 									state: {from: "details"},
-									query: {channelId: null}
+									query: {
+										movieId: movie.id,
+										movieType: movie.type
+									}
 								}}
 							>{
 								({transition}) => <TouchableOpacity
@@ -127,6 +130,8 @@ DetailsProgram.propTypes = {
 		}).isRequired
 	}).isRequired,
 	movie: PropTypes.shape({
+		id: PropTypes.string,
+		type: PropTypes.string,
 		title: PropTypes.string,
 		description: PropTypes.string,
 		images: PropTypes.shape({

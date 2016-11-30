@@ -23,6 +23,8 @@ export const ACTION_TYPES = {
 	FETCH_CHANNEL_STREAM_SUCCESS: "FETCH_CHANNEL_STREAM_SUCCESS",
 	FETCH_MOVIE_DETAILS_REQUEST: "FETCH_MOVIE_DETAILS_REQUEST",
 	FETCH_MOVIE_DETAILS_SUCCESS: "FETCH_MOVIE_DETAILS_SUCCESS",
+	FETCH_MOVIE_STREAM_REQUEST: "FETCH_MOVIE_STREAM_REQUEST",
+	FETCH_MOVIE_STREAM_SUCCESS: "FETCH_MOVIE_STREAM_SUCCESS"
 };
 
 const ENDPOINTS = {
@@ -262,3 +264,23 @@ export const fetchMovieDetails = (movieId, movieType) => (dispatch) => {
 };
 
 /* FETCH PROGRAM DETAILS */
+
+/* FETCH MOVIE STREAM */
+const fetchMovieStreamSuccess = (movieStreamUrl) => ({
+	type: ACTION_TYPES.FETCH_MOVIE_STREAM_SUCCESS,
+	payload: {
+		movieStreamUrl
+	}
+});
+
+export const fetchMovieStream = (movieId, movieType) => (dispatch) => {
+	dispatch({
+		type: ACTION_TYPES.FETCH_MOVIE_STREAM_REQUEST
+	});
+
+	return get(`${movieType}/${movieId}/stream`)
+		.then((movieStreamUrl) => dispatch(fetchMovieStreamSuccess(movieStreamUrl)))
+		.catch((error) => dispatch(generalError(ACTION_TYPES.FETCH_MOVIE_STREAM_REQUEST, error)));
+};
+
+/* FETCH MOVIE STREAM */

@@ -29,7 +29,7 @@ class Movie extends React.Component {
 	}
 
 	onImagePress() {
-		this.props.onPress(this.props.id);
+		this.props.onPress(this.props.id, this.props.type);
 	}
 
 	renderImage() {

@@ -49,7 +49,8 @@ export default [
 		pattern: "/movies",
 		exactly: true,
 		container: MoviesContainer,
-		view: Movies
+		view: Movies,
+		secure: true
 	},
 	{
 		pattern: "/details/program",
