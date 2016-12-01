@@ -4,19 +4,34 @@ import {Link} from "react-router";
 import Image from "./Image";
 import {pickCurrentProgram} from "../../shared/utils/schedule";
 import {timestampToTimeString, timePercentElapsedBetween} from "../../shared/utils/time";
+import ProgressBar from "./ProgressBar";
 
 const styles = StyleSheet.create({
 	content: {
-		width: 100,
-		maxHeight: 120
+		width: 120,
+		maxHeight: 120,
+		paddingLeft: 5,
+		paddingRight: 5
 	},
-	image: {
-		width: 80,
-		height: 60,
-		backgroundColor: "black"
+	logoBackground: {
+		width: 110,
+		height: 70
 	},
-	text: {
-		color: "white"
+	logo: {
+		position: "absolute",
+		left: 5,
+		bottom: 5,
+		width: 45,
+		height: 30
+	},
+	title: {
+		color: "white",
+		fontWeight: "bold",
+		fontSize: 10
+	},
+	time: {
+		color: "white",
+		fontSize: 9
 	}
 });
 
@@ -32,6 +47,10 @@ class LiveChannel extends React.Component {
 		this.timer = setInterval(this.updateCurrentProgram, 1000);
 
 		this.onImagePress = this.onImagePress.bind(this);
+	}
+
+	componentDidMount() {
+		this.updateCurrentProgram();
 	}
 
 	componentWillUnmount() {
@@ -62,17 +81,22 @@ class LiveChannel extends React.Component {
 
 	renderOngoingProgram() {
 		return this.state.program ? <View>
-			<Text style={styles.text}>{this.state.program.title}</Text>
-			<Text style={styles.text}>{this.state.program.time}</Text>
-			<Text style={styles.text}>{this.state.program.elapsedPercent}</Text>
+			<Text
+				ellipsizeMode={"tail"}
+				numberOfLines={1}
+				style={styles.title}
+			>
+				{this.state.program.title}
+			</Text>
+			<Text style={styles.time}>{this.state.program.time}</Text>
 		</View> : <Text style={styles.text}>{"No Program"}</Text>;
 	}
 
 	renderChannelLogo() {
 		const imageUrl = this.props.images.LOGO;
 		const logo = (<Image
-			style={styles.image}
-			resizeMode={"cover"}
+			style={styles.logo}
+			resizeMode={"contain"}
 			source={imageUrl}
 		/>);
 
@@ -87,7 +111,14 @@ class LiveChannel extends React.Component {
 				({transition}) => <TouchableOpacity
 					onPress={transition}
 				>
-					{logo}
+					{/* eslint-disable global-require */}
+					<Image
+						source={require("../../../resources/images/Live-TV-placeholder.png")}
+						resizeMode={"contain"}
+						style={styles.logoBackground}
+					>
+						{logo}
+					</Image>
 				</TouchableOpacity>
 			}</Link>);
 		}
@@ -102,6 +133,7 @@ class LiveChannel extends React.Component {
 	render() {
 		return (<View style={[styles.content, this.props.style || {}]}>
 			{this.renderChannelLogo()}
+			<ProgressBar percent={(this.state.program && this.state.program.elapsedPercent) || 0} />
 			{this.renderOngoingProgram()}
 		</View>);
 	}

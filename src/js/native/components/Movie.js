@@ -2,22 +2,27 @@ import React, {PropTypes} from "react";
 import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
 import {Link} from "react-router";
 import Image from "./Image";
+import {secondsToMinuteString} from "../../shared/utils/time";
 
 const styles = StyleSheet.create({
 	content: {
-		flex: 1
+		width: 120,
+		maxHeight: 120,
+		paddingLeft: 5,
+		paddingRight: 5
 	},
 	image: {
-		width: 140,
-		height: 120
+		width: 110,
+		height: 70
 	},
 	title: {
-		maxWidth: 140,
+		color: "white",
 		fontWeight: "bold",
-		color: "white"
+		fontSize: 10
 	},
 	duration: {
-		color: "white"
+		color: "white",
+		fontSize: 9
 	}
 });
 
@@ -70,8 +75,14 @@ class Movie extends React.Component {
 		const duration = this.props.metadata && this.props.metadata.duration;
 
 		return (<View>
-			<Text style={styles.title}>{this.props.title}</Text>
-			<Text style={styles.duration}>{duration}</Text>
+			<Text
+				ellipsizeMode={"tail"}
+				numberOfLines={1}
+				style={styles.title}
+			>
+				{this.props.title}
+			</Text>
+			<Text style={styles.duration}>{`${secondsToMinuteString(duration || 0)} min`}</Text>
 		</View>);
 	}
 

@@ -6,10 +6,15 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	header: {
-		height: 20
+		height: 40,
+		paddingTop: 15,
+		paddingBottom: 5,
+		paddingLeft: 10,
+		justifyContent: "center"
 	},
 	headerText: {
-		color: "white"
+		color: "white",
+		fontWeight: "bold"
 	},
 	verticalWrappingScroll: {
 		flexDirection: "row",

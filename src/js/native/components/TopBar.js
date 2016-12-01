@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import {Link} from "react-router";
 import colors from "../../shared/styles/colors";
 import {isIos} from "../utils/platform";
+import Image from "./Image";
 
 const styles = StyleSheet.create({
 	topBar: {
@@ -16,14 +17,15 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between"
 	},
 	topBarTitle: {
-		flex: 1
+		flex: 1,
+		alignItems: "center"
 	},
 	topBarButton: {
 		flex: 1
 	},
-	topBarTitleText: {
-		textAlign: "center",
-		color: colors.accent
+	topBarLogo: {
+		height: 25,
+		width: 25
 	},
 	topBarLeftButtonText: {
 		textAlign: "left",
@@ -47,7 +49,22 @@ const TopBar = (props) => <View style={styles.topBar}>
 		}</Link> : null}
 	</View>
 	<View style={styles.topBarTitle}>
-		<Text style={styles.topBarTitleText}>{"NM"}</Text>
+		<Link
+			to={{
+				pathname: "/",
+				state: {from: "menu"}
+			}}
+		>{
+			({transition}) => <TouchableOpacity
+				onPress={transition}
+			>
+				{/* eslint-disable global-require */}
+				<Image
+					style={styles.topBarLogo}
+					source={require("../../../resources/images/logo.png")}
+				/>
+			</TouchableOpacity>
+		}</Link>
 	</View>
 	<View style={styles.topBarButton}>
 		{null}

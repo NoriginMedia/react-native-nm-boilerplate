@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import {View, TouchableOpacity, StyleSheet} from "react-native";
 import {Link} from "react-router";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../../shared/styles/colors";
