@@ -3,13 +3,50 @@ import {View, TextInput, TouchableOpacity, Text} from "react-native";
 import {Redirect} from "react-router";
 import TopBar from "./TopBar";
 import {floatFromTop} from "../styles/animations";
+import colors from "../../shared/styles/colors";
 
 const styles = {
 	content: {
-		flex: 1
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+		backgroundColor: colors.background
+	},
+	inputWrapper: {
+		padding: 10
 	},
 	textInput: {
-		height: 40
+		paddingLeft: 5,
+		height: 40,
+		width: 200,
+		backgroundColor: "white"
+	},
+	inputLabel: {
+		padding: 5,
+		color: "white",
+		fontWeight: "bold"
+	},
+	buttons: {
+		alignItems: "center"
+	},
+	button: {
+		marginTop: 10,
+		backgroundColor: colors.accent,
+		justifyContent: "space-around",
+		alignItems: "center",
+		paddingLeft: 5,
+		paddingTop: 3,
+		paddingBottom: 3,
+		paddingRight: 5,
+		height: 40,
+		width: 100
+	},
+	buttonTextWrapper: {
+		justifyContent: "space-around",
+		alignItems: "center"
+	},
+	buttonText: {
+		color: "white"
 	}
 };
 
@@ -57,31 +94,40 @@ class Login extends React.Component {
 			return (<Redirect to={{pathname: "/"}} />);
 		}
 
-		return (<View>
-			<View>
+		return (<View style={styles.content}>
+			<View style={styles.inputWrapper}>
+				<Text style={styles.inputLabel}>{"Username"}</Text>
 				<TextInput
 					style={styles.textInput}
 					onChangeText={(username) => this.setState({username})}
 					value={this.state.username}
 				/>
 			</View>
-			<View>
+			<View style={styles.inputWrapper}>
+				<Text style={styles.inputLabel}>{"Password"}</Text>
 				<TextInput
+					secureTextEntry
 					style={styles.textInput}
 					onChangeText={(password) => this.setState({password})}
 					value={this.state.password}
 				/>
 			</View>
-			<TouchableOpacity onPress={this.onSubmit}>
-				<View>
-					<Text>{"Submit"}</Text>
-				</View>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={this.onCancel}>
-				<View>
-					<Text>{"Cancel"}</Text>
-				</View>
-			</TouchableOpacity>
+			<View style={styles.buttons}>
+				<TouchableOpacity onPress={this.onSubmit}>
+					<View style={styles.button}>
+						<View style={styles.buttonTextWrapper}>
+							<Text style={styles.buttonText}>{"Sign In"}</Text>
+						</View>
+					</View>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={this.onCancel}>
+					<View style={styles.button}>
+						<View style={styles.buttonTextWrapper}>
+							<Text style={styles.buttonText}>{"Cancel"}</Text>
+						</View>
+					</View>
+				</TouchableOpacity>
+			</View>
 		</View>);
 	}
 

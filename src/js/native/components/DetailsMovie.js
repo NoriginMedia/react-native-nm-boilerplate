@@ -1,13 +1,14 @@
 import React, {PropTypes} from "react";
 import {View, Text, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
 import {Link} from "react-router";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import BottomBarContainer from "../../shared/containers/BottomBar";
 import {floatFromRight} from "../styles/animations";
 import Image from "./Image";
-import {timePercentElapsedBetween, timestampToTimeString, timestampToDayString} from "../../shared/utils/time";
 import colors from "../../shared/styles/colors";
+import iconKeys from "../../shared/styles/iconKeys";
 
 const styles = StyleSheet.create({
 	content: {
@@ -21,34 +22,64 @@ const styles = StyleSheet.create({
 		flex: 3
 	},
 	imageWrapper: {
-
+		flex: 1,
+		padding: 10
 	},
 	image: {
-		height: 200
+		height: 150,
+		width: 200
 	},
 	title: {
-		color: "white"
+		padding: 5,
+		color: "white",
+		fontWeight: "bold"
 	},
 	description: {
-		color: "white"
+		padding: 5,
+		color: "white",
+		fontSize: 10
 	},
 	rightSection: {
 		flex: 2
 	},
 	buttons: {
-		alignItems: "center"
+		alignItems: "center",
+		paddingTop: 20,
+		paddingBottom: 20
 	},
 	button: {
-		backgroundColor: colors.accent
+		backgroundColor: colors.accent,
+		flexDirection: "row",
+		justifyContent: "space-around",
+		paddingLeft: 10,
+		paddingTop: 3,
+		paddingBottom: 3,
+		paddingRight: 5
+	},
+	buttonTextWrapper: {
+		flexDirection: "row",
+		justifyContent: "space-around",
+		alignItems: "center"
 	},
 	buttonText: {
-		color: "white"
+		color: "white",
+		fontWeight: "bold"
+	},
+	buttonIcon: {
+		color: "white",
+		fontSize: 24
+	},
+	devicesLabel: {
+		padding: 5
 	},
 	devices: {
-
+		flexDirection: "row",
+		flexWrap: "wrap"
 	},
 	device: {
-		color: "white"
+		padding: 1,
+		color: "white",
+		fontSize: 20
 	}
 });
 
@@ -78,10 +109,21 @@ const DetailsProgram = (props) => {
 						/>
 					</View>
 					<View>
-						<Text style={styles.title}>{movie.title || ""}</Text>
+						<Text
+							ellipsizeMode={"tail"}
+							numberOfLines={1}
+							style={styles.title}
+						>
+							{movie.title || ""}
+						</Text>
 					</View>
 					<View>
-						<Text style={styles.description}>{movie.description || ""}</Text>
+						<Text
+							ellipsizeMode={"tail"}
+							style={styles.description}
+						>
+							{movie.description || ""}
+						</Text>
 					</View>
 				</View>
 				<View style={styles.rightSection}>
@@ -100,19 +142,27 @@ const DetailsProgram = (props) => {
 								({transition}) => <TouchableOpacity
 									onPress={transition}
 								>
-									<Text style={styles.buttonText}>{"Watch now"}</Text>
+									<View style={styles.buttonTextWrapper}>
+										<Text style={styles.buttonText}>{"WATCH"}</Text>
+										<Icon
+											style={styles.buttonIcon}
+											name={"play-arrow"}
+										/>
+									</View>
 								</TouchableOpacity>
 							}</Link>
 						</View>
 					</View>
+					<View style={styles.devicesLabel}>
+						<Text style={styles.title}>{"Devices"}</Text>
+					</View>
 					<View style={styles.devices}>
 						{movie.structuredTags && movie.structuredTags.terminals ?
-							movie.structuredTags.terminals.map((terminal, index) => <Text
+							movie.structuredTags.terminals.map((terminal, index) => <Icon
 								key={index}
 								style={styles.device}
-							>
-								{terminal.title || ""}
-							</Text>) : null}
+								name={iconKeys[terminal.title] || "computer"}
+							/>) : null}
 					</View>
 				</View>
 			</ScrollView>

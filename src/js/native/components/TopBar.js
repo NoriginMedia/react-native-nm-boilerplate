@@ -4,6 +4,7 @@ import {Link} from "react-router";
 import colors from "../../shared/styles/colors";
 import {isIos} from "../utils/platform";
 import Image from "./Image";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const styles = StyleSheet.create({
 	topBar: {
@@ -29,7 +30,8 @@ const styles = StyleSheet.create({
 	},
 	topBarLeftButtonText: {
 		textAlign: "left",
-		color: colors.accent
+		color: colors.accent,
+		fontSize: 30
 	}
 });
 
@@ -44,7 +46,10 @@ const TopBar = (props) => <View style={styles.topBar}>
 			({transition}) => <TouchableOpacity
 				onPress={transition}
 			>
-				<Text style={styles.topBarLeftButtonText}>{"< Back"}</Text>
+				<Icon
+					style={styles.topBarLeftButtonText}
+					name={"keyboard-arrow-left"}
+				/>
 			</TouchableOpacity>
 		}</Link> : null}
 	</View>
