@@ -5,17 +5,18 @@ import Image from "./Image";
 import {pickCurrentProgram} from "../../shared/utils/schedule";
 import {timestampToTimeString, timePercentElapsedBetween} from "../../shared/utils/time";
 import ProgressBar from "./ProgressBar";
+import colors from "../../shared/styles/colors";
 
 const styles = StyleSheet.create({
 	content: {
-		width: 120,
-		maxHeight: 120,
+		width: 150,
+		maxHeight: 150,
 		paddingLeft: 5,
 		paddingRight: 5
 	},
 	logoBackground: {
-		width: 110,
-		height: 70
+		width: 140,
+		height: 90
 	},
 	logo: {
 		position: "absolute",
@@ -27,11 +28,12 @@ const styles = StyleSheet.create({
 	title: {
 		color: "white",
 		fontWeight: "bold",
-		fontSize: 10
+		fontSize: 12
 	},
 	time: {
 		color: "white",
-		fontSize: 9
+		fontSize: 10,
+		paddingBottom: 5
 	}
 });
 
@@ -89,7 +91,7 @@ class LiveChannel extends React.Component {
 				{this.state.program.title}
 			</Text>
 			<Text style={styles.time}>{this.state.program.time}</Text>
-		</View> : <Text style={styles.text}>{"No Program"}</Text>;
+		</View> : <Text style={styles.title}>{"No Program"}</Text>;
 	}
 
 	renderChannelLogo() {
@@ -99,6 +101,15 @@ class LiveChannel extends React.Component {
 			resizeMode={"contain"}
 			source={imageUrl}
 		/>);
+
+		/* eslint-disable global-require */
+		const image = (<Image
+			source={require("../../../resources/images/Live-TV-placeholder.png")}
+			resizeMode={"contain"}
+			style={styles.logoBackground}
+		>
+			{logo}
+		</Image>);
 
 		if (this.props.isLink) {
 			return (<Link
@@ -111,14 +122,7 @@ class LiveChannel extends React.Component {
 				({transition}) => <TouchableOpacity
 					onPress={transition}
 				>
-					{/* eslint-disable global-require */}
-					<Image
-						source={require("../../../resources/images/Live-TV-placeholder.png")}
-						resizeMode={"contain"}
-						style={styles.logoBackground}
-					>
-						{logo}
-					</Image>
+					{image}
 				</TouchableOpacity>
 			}</Link>);
 		}
@@ -126,12 +130,20 @@ class LiveChannel extends React.Component {
 		return (<TouchableOpacity
 			onPress={this.onImagePress}
 		>
-			{logo}
+			{image}
 		</TouchableOpacity>);
 	}
 
 	render() {
-		return (<View style={[styles.content, this.props.style || {}]}>
+		return (<View
+			style={[
+				styles.content,
+				this.props.style || {},
+				this.props.isSelected ? {
+					backgroundColor: colors.secondary
+				} : {}
+			]}
+		>
 			{this.renderChannelLogo()}
 			<ProgressBar percent={(this.state.program && this.state.program.elapsedPercent) || 0} />
 			{this.renderOngoingProgram()}
@@ -157,7 +169,8 @@ LiveChannel.propTypes = {
 
 	/* invoked only if item is not a Link */
 	onPress: PropTypes.func.isRequired,
-	style: PropTypes.object
+	style: PropTypes.object,
+	isSelected: PropTypes.bool
 };
 
 /* eslint-disable no-empty-function */

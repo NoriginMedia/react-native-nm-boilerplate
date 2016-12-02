@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {View, Text, StyleSheet} from "react-native";
+import {ScrollView, View, Text, StyleSheet} from "react-native";
 /* eslint-disable */
 import Video from "react-native-video";
 /* eslint-enable */
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.background
 	},
 	playerWrapper: {
-		flex: 1,
+		height: 300,
 		alignItems: "center",
 		justifyContent: "space-around"
 	},
@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
 		width: screenWidth
 	},
 	channelsWrapper: {
-		flex: 1
+		maxHeight: 150
 	}
 });
 
 const WatchLive = (props) => <View style={props.isAnimating ? staticBackground : {flex: 1}}>
 	<TopBar />
-	<View style={styles.content}>
+	<ScrollView style={styles.content}>
 		<View style={styles.playerWrapper}>
 			{!isEmpty(props.channelStreamUrl) ? <Video
 				source={{uri: props.channelStreamUrl.match(/^https?:/) ? props.channelStreamUrl : DUMMY_STREAM_URL}}
@@ -50,9 +50,11 @@ const WatchLive = (props) => <View style={props.isAnimating ? staticBackground :
 				itemComponent={LiveChannel}
 				items={props.channels}
 				onItemPress={props.onChannelSelect}
+				horizontalScroll
+				selectedItem={props.selectedChannel || ""}
 			/>
 		</View>
-	</View>
+	</ScrollView>
 	<BottomBarContainer component={BottomBar} />
 </View>;
 
@@ -60,7 +62,8 @@ WatchLive.propTypes = {
 	isAnimating: PropTypes.bool.isRequired,
 	channelStreamUrl: PropTypes.string,
 	onChannelSelect: PropTypes.func.isRequired,
-	channels: PropTypes.array.isRequired
+	channels: PropTypes.array.isRequired,
+	selectedChannel: PropTypes.string
 };
 
 export default WatchLive;

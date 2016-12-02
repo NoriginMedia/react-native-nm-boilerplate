@@ -15,11 +15,6 @@ const styles = StyleSheet.create({
 	headerText: {
 		color: "white",
 		fontWeight: "bold"
-	},
-	verticalWrappingScroll: {
-		flexDirection: "row",
-		flexWrap: "wrap",
-		justifyContent: "space-around"
 	}
 });
 
@@ -42,6 +37,7 @@ class Category extends React.Component {
 			linkReferer={this.props.itemLinkReferer}
 			onPress={this.onItemPress}
 			style={this.props.itemStyle}
+			isSelected={this.props.selectedItem === item.id}
 			{...item}
 		/>);
 
@@ -51,10 +47,8 @@ class Category extends React.Component {
 			</ScrollView>);
 		}
 
-		return (<ScrollView style={styles.content}>
-			<View style={styles.verticalWrappingScroll}>
-				{items}
-			</View>
+		return (<ScrollView>
+			{items}
 		</ScrollView>);
 	}
 
@@ -72,13 +66,22 @@ class Category extends React.Component {
 
 Category.propTypes = {
 	title: PropTypes.string,
-	items: PropTypes.array.isRequired,
+	items: PropTypes.arrayOf(PropTypes.shape({
+		id: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.number
+		])
+	})).isRequired,
 	itemComponent: PropTypes.func.isRequired,
 	itemsAreLinks: PropTypes.bool,
 	itemLinkReferer: PropTypes.string,
 	horizontalScroll: PropTypes.bool,
 	onItemPress: PropTypes.func,
-	itemStyle: PropTypes.object
+	itemStyle: PropTypes.object,
+	selectedItem: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	])
 };
 
 /* eslint-disable no-empty-function */

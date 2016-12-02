@@ -6,23 +6,23 @@ import {secondsToMinuteString} from "../../shared/utils/time";
 
 const styles = StyleSheet.create({
 	content: {
-		width: 120,
-		maxHeight: 120,
+		width: 150,
+		maxHeight: 150,
 		paddingLeft: 5,
 		paddingRight: 5
 	},
 	image: {
-		width: 110,
-		height: 70
+		width: 140,
+		height: 90
 	},
 	title: {
 		color: "white",
 		fontWeight: "bold",
-		fontSize: 10
+		fontSize: 12
 	},
 	duration: {
 		color: "white",
-		fontSize: 9
+		fontSize: 10
 	}
 });
 
