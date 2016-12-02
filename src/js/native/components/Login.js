@@ -2,7 +2,9 @@ import React, {PropTypes} from "react";
 import {View, TextInput, TouchableOpacity, Text} from "react-native";
 import {Redirect} from "react-router";
 import TopBar from "./TopBar";
-import {floatFromTop} from "../styles/animations";
+
+// import {floatFromTop} from "../styles/animations";
+
 import colors from "../../shared/styles/colors";
 
 const styles = {
@@ -132,13 +134,7 @@ class Login extends React.Component {
 	}
 
 	render() {
-		return (<View
-			style={
-				this.props.isAnimating ?
-					floatFromTop(this.props.fader, true) :
-					{flex: 1}
-			}
-		>
+		return (<View style={{flex: 1}}>
 			<TopBar />
 			{this.renderContent()}
 		</View>);
@@ -155,9 +151,7 @@ Login.propTypes = {
 				query: PropTypes.object
 			})
 		})
-	}).isRequired,
-	fader: PropTypes.number.isRequired,
-	isAnimating: PropTypes.bool.isRequired
+	}).isRequired
 };
 
 export default Login;

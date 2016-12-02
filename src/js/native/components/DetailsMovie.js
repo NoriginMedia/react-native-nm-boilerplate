@@ -5,7 +5,9 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import BottomBarContainer from "../../shared/containers/BottomBar";
-import {floatFromRight} from "../styles/animations";
+
+// import {floatFromRight} from "../styles/animations";
+
 import Image from "./Image";
 import colors from "../../shared/styles/colors";
 import iconKeys from "../../shared/styles/iconKeys";
@@ -87,13 +89,7 @@ const DetailsProgram = (props) => {
 	const movie = props.movie;
 	const imageUrl = (movie.images && movie.images.CarouselLandscapeHeader) || "";
 
-	return (<View
-		style={
-			props.isAnimating ?
-				floatFromRight(props.fader, true) :
-			{flex: 1}
-		}
-	>
+	return (<View style={{flex: 1}}>
 		<TopBar
 			leftButtonPath={props.location.state.from}
 			leftButtonReferer={"details"}
@@ -172,8 +168,6 @@ const DetailsProgram = (props) => {
 };
 
 DetailsProgram.propTypes = {
-	fader: PropTypes.number.isRequired,
-	isAnimating: PropTypes.bool.isRequired,
 	location: PropTypes.shape({
 		state: PropTypes.shape({
 			from: PropTypes.string.isRequired

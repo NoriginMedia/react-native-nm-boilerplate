@@ -1,7 +1,8 @@
 import React from "react";
 import {Match} from "react-router";
 import FullAuthWrapper from "./containers/FullAuthWrapper";
-import createTransition from "./containers/Transition";
+
+// import createTransition from "./containers/Transition";
 
 export default (routeConfigs) => routeConfigs.map((routeConfig, index) => {
 	const Container = routeConfig.container;
@@ -22,7 +23,7 @@ export default (routeConfigs) => routeConfigs.map((routeConfig, index) => {
 			key={index}
 			exactly={routeConfig.exactly === true}
 			pattern={routeConfig.pattern}
-			children={createTransition(MatchingComponent, routeConfig.animated)}
+			component={MatchingComponent}
 		/>
 	);
 });

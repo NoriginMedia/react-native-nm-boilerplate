@@ -7,7 +7,9 @@ import {isEmpty} from "lodash";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import BottomBarContainer from "../../shared/containers/BottomBar";
-import {staticBackground} from "../styles/animations";
+
+// import {staticBackground} from "../styles/animations";
+
 import colors from "../../shared/styles/colors";
 import {screenWidth} from "../utils/screen";
 import {DUMMY_STREAM_URL} from "../../shared/config";
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
 	}
 });
 
-const WatchLive = (props) => <View style={props.isAnimating ? staticBackground : {flex: 1}}>
+const WatchLive = (props) => <View style={{flex: 1}}>
 	<TopBar />
 	<View style={styles.content}>
 		<View style={styles.playerWrapper}>
@@ -45,7 +47,6 @@ const WatchLive = (props) => <View style={props.isAnimating ? staticBackground :
 </View>;
 
 WatchLive.propTypes = {
-	isAnimating: PropTypes.bool.isRequired,
 	movieStreamUrl: PropTypes.string
 };
 

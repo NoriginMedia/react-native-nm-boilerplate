@@ -6,7 +6,8 @@ import colors from "../../shared/styles/colors";
 
 const styles = StyleSheet.create({
 	root: {
-		flex: 1
+		flex: 1,
+		backgroundColor: colors.background
 	},
 	content: {
 		flex: 1

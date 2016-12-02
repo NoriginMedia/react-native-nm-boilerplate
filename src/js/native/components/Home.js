@@ -7,7 +7,9 @@ import Movie from "./Movie";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import BottomBarContainer from "../../shared/containers/BottomBar";
-import {staticBackground} from "../styles/animations";
+
+// import {staticBackground} from "../styles/animations";
+
 import colors from "../../shared/styles/colors";
 
 const styles = StyleSheet.create({
@@ -17,9 +19,7 @@ const styles = StyleSheet.create({
 	}
 });
 
-const Home = (props) => <View
-	style={props.isAnimating ? staticBackground : {flex: 1}}
->
+const Home = (props) => <View style={{flex: 1}}>
 	<TopBar />
 	<ScrollView
 		style={styles.scrollView}
@@ -58,8 +58,7 @@ Home.propTypes = {
 	categories: PropTypes.arrayOf(PropTypes.shape({
 		title: PropTypes.string.isRequired,
 		contents: PropTypes.array.isRequired
-	})).isRequired,
-	isAnimating: PropTypes.bool.isRequired
+	})).isRequired
 };
 
 export default Home;
