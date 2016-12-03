@@ -40,3 +40,4 @@ buck-out/
 android/app/libs
 android/keystores/debug.keystore
 android/app/*.keystore
+android/app/gradle.properties
