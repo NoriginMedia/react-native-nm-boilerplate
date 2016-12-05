@@ -1,13 +1,18 @@
-import React from "react";
+import React, {PropTypes} from "react";
 import {MemoryRouter} from "react-router";
-import Store from "../shared/store";
+import {Provider} from "react-redux";
 import Layout from "./components/Layout";
 import Loader from "./components/Loader";
 import AuthWrapper from "../shared/containers/AuthWrapper";
 
-/* eslint-disable no-underscore-dangle */
-export default () => <Store composer={global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__}>
+const NativeApp = (props) => <Provider store={props.store}>
 	<MemoryRouter>
 		<AuthWrapper component={Layout} loader={Loader} />
 	</MemoryRouter>
-</Store>;
+</Provider>;
+
+NativeApp.propTypes = {
+	store: PropTypes.object.isRequired
+};
+
+export default NativeApp;

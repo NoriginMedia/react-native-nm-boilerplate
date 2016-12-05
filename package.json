@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Norigin Media React Native boilerplate app",
   "scripts": {
-    "start:web": "babel-node -- ./node_modules/.bin/webpack-dev-server --hot --inline",
+    "start:web": "babel-node -- ./node_modules/.bin/webpack-dev-server --hot",
     "build:web": "babel-node -- ./node_modules/.bin/webpack",
     "start:ios": "react-native run-ios",
     "start:android": "react-native run-android"
@@ -38,6 +38,7 @@
     "eslint-config-norigin": "git+https://github.com/NoriginMedia/eslint-config-norigin.git#v1.0.0-beta.11",
     "eslint-loader": "^1.5.0",
     "file-loader": "^0.9.0",
+    "react-hot-loader": "^3.0.0-alpha.8",
     "react-native-cli": "^1.0.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",

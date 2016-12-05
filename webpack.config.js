@@ -1,5 +1,4 @@
 import path from "path";
-import webpack from "webpack";
 
 const JS_RE = /\.js$/;
 const IMG_FONTS_RE = /\.(jpg|png|woff|woff2|eot|ttf|svg)$/;
@@ -16,7 +15,9 @@ export default {
 	},
 
 	entry: [
-		"webpack/hot/dev-server",
+		"webpack-dev-server/client?http://localhost:8080",
+		"webpack/hot/only-dev-server",
+		"react-hot-loader/patch",
 		"./index.web.js"
 	],
 
@@ -49,8 +50,5 @@ export default {
 				include: SRC_PATH
 			}
 		]
-	},
-	plugins: [
-		new webpack.HotModuleReplacementPlugin()
-	]
+	}
 };
