@@ -10,7 +10,8 @@ import {horizontalFlex} from "../styles/layout";
 const styles = {
 	image: {
 		minWidth: window.innerWidth,
-		minHeight: window.innerHeight * 0.35
+		minHeight: window.innerHeight * 0.35,
+		position: "relative"
 	},
 	logoWrapper: {
 		position: "absolute",

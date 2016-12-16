@@ -1,19 +1,21 @@
 import React, {PropTypes} from "react";
 
+const RESIZE_CONTAIN = "contain";
+const RESIZE_COVER = "cover";
+
 const styles = {
 	resizeCover: {
 		minWidth: "100%",
 		minHeight: "100%",
-		objectFit: "cover"
+		objectFit: RESIZE_COVER
 	},
 	resizeContain: {
-		maxWidth: "100%",
-		maxHeight: "100%",
-		objectFit: "contain"
+		width: "100%",
+		height: "100%",
+		objectFit: RESIZE_CONTAIN
 	},
 	backgroundImage: {
-		position: "absolute",
-		zIndex: -1
+		position: "absolute"
 	}
 };
 
@@ -35,9 +37,14 @@ class CustomImage extends React.Component {
 		/* eslint-disable global-require */
 		const defaultSource = require("../../../resources/images/placeholder_368p.jpg");
 
+		const resizeMode = this.props.children ?
+			this.props.resizeMode || RESIZE_COVER :
+			this.props.resizeMode || RESIZE_CONTAIN;
+		const resizeStyle = (resizeMode === RESIZE_COVER && styles.resizeCover) || styles.resizeContain;
+
 		return (<img
 			style={this.props.children ? {
-				...styles.resizeCover,
+				...resizeStyle,
 				...styles.backgroundImage
 			} : styles.resizeContain}
 			src={(this.state.loadingFailed || !this.props.source) ? defaultSource : this.props.source}
@@ -59,7 +66,7 @@ CustomImage.propTypes = {
 		PropTypes.string,
 		PropTypes.number
 	]).isRequired,
-	resizeMode: PropTypes.oneOf(["cover", "contain"]),
+	resizeMode: PropTypes.oneOf([RESIZE_COVER, RESIZE_CONTAIN]),
 	style: PropTypes.object
 };
 
