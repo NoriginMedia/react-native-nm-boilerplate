@@ -3,12 +3,9 @@ import {createStore, applyMiddleware} from "redux";
 import reducer from "../shared/reducer";
 import initialState from "../shared/initial-state";
 
-export default () => {
-	// Return browser Redux composer or dummy function
-	// https://github.com/zalmoxisus/redux-devtools-extension
-
-	/* eslint-disable no-underscore-dangle */
-	const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || ((middlewares) => middlewares);
+export default (composer) => {
+	// Return Redux devtools composer or dummy function
+	const composeEnchancers = composer || ((middlewares) => middlewares);
 	const store = createStore(reducer, initialState, composeEnchancers(applyMiddleware(thunk)));
 
 	if (module.hot) {

@@ -36,7 +36,7 @@ CustomImage.propTypes = {
 	source: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.number
-	])
+	]).isRequired
 };
 
 export default CustomImage;

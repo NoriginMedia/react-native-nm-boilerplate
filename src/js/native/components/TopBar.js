@@ -1,10 +1,10 @@
 import React, {PropTypes} from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import {View, StyleSheet, TouchableOpacity} from "react-native";
 import {Link} from "react-router";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../../shared/styles/colors";
 import {isIos} from "../utils/platform";
 import Image from "./Image";
-import Icon from "react-native-vector-icons/MaterialIcons";
 
 const styles = StyleSheet.create({
 	topBar: {
@@ -35,6 +35,9 @@ const styles = StyleSheet.create({
 	}
 });
 
+/* eslint-disable global-require */
+const logoSrc = require("../../../resources/images/logo.png");
+
 const TopBar = (props) => <View style={styles.topBar}>
 	<View style={styles.topBarButton}>
 		{(props.leftButtonPath || props.leftButtonReferer) ? <Link
@@ -63,10 +66,9 @@ const TopBar = (props) => <View style={styles.topBar}>
 			({transition}) => <TouchableOpacity
 				onPress={transition}
 			>
-				{/* eslint-disable global-require */}
 				<Image
 					style={styles.topBarLogo}
-					source={require("../../../resources/images/logo.png")}
+					source={logoSrc}
 				/>
 			</TouchableOpacity>
 		}</Link>

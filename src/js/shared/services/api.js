@@ -1,5 +1,6 @@
 import "whatwg-fetch";
 import queryString from "query-string";
+import {isEmpty} from "lodash";
 import {API_ROOT, AUTH_TOKEN_NAME} from "../config";
 
 const METHOD_GET = "GET";
@@ -48,7 +49,7 @@ export const setAuthToken = (token) => {
 };
 
 export const get = (endpoint, params) => {
-	const path = API_ROOT + endpoint + (params ? `?${queryString.stringify(params)}` : "");
+	const path = API_ROOT + endpoint + (params && !isEmpty(params) ? `?${queryString.stringify(params)}` : "");
 
 	return doRequest(path, {method: METHOD_GET});
 };

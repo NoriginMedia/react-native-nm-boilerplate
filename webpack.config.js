@@ -1,8 +1,10 @@
 import path from "path";
 
 const JS_RE = /\.js$/;
-const IMG_FONTS_RE = /\.(jpg|png|woff|woff2|eot|ttf|svg)$/;
+const IMG_FONTS_JSON_RE = /\.(jpg|png|woff|woff2|eot|ttf|svg|json)$/;
 const SRC_PATH = [path.resolve(__dirname, "src/js")];
+const RESOURCES_PATH = [path.resolve(__dirname, "src/resources")];
+const ICONS_LIB_PATH = [path.resolve(__dirname, "node_modules/react-native-vector-icons")];
 
 export default {
 
@@ -45,9 +47,9 @@ export default {
 				plugins: ["transform-runtime"]
 			},
 			{
-				test: IMG_FONTS_RE,
-				loader: "url-loader?limit=8192",
-				include: SRC_PATH
+				test: IMG_FONTS_JSON_RE,
+				loader: "file-loader",
+				include: [SRC_PATH, RESOURCES_PATH, ICONS_LIB_PATH]
 			}
 		]
 	}
