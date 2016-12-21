@@ -16,6 +16,8 @@ const styles = {
 	},
 	verticalScroll: {
 		flex: 1,
+		maxWidth: 800,
+		alignSelf: "center",
 		overflowY: "scroll"
 	}
 };

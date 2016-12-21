@@ -1,10 +1,10 @@
 import React, {PropTypes} from "react";
-import {View} from "react-native";
 import colors from "../../shared/styles/colors";
+import {horizontalFlex} from "../styles/layout";
 
 const styles = {
 	background: {
-		flexDirection: "row"
+		...horizontalFlex
 	},
 	progress: {
 		backgroundColor: colors.accent,
@@ -16,10 +16,20 @@ const styles = {
 	}
 };
 
-const ProgressBar = (props) => <View style={styles.background}>
-	<View style={[styles.progress, {flex: Math.max(props.percent, 0)}]} />
-	<View style={[styles.negativeProgress, {flex: Math.max(100 - props.percent, 0)}]} />
-</View>;
+const ProgressBar = (props) => <div style={styles.background}>
+	<div
+		style={{
+			...styles.progress,
+			flex: Math.max(props.percent, 0)
+		}}
+	/>
+	<div
+		style={{
+			...styles.negativeProgress,
+			flex: Math.max(100 - props.percent, 0)
+		}}
+	/>
+</div>;
 
 ProgressBar.propTypes = {
 	percent: PropTypes.number.isRequired

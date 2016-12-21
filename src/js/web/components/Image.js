@@ -46,7 +46,7 @@ class CustomImage extends React.Component {
 			style={this.props.children ? {
 				...resizeStyle,
 				...styles.backgroundImage
-			} : styles.resizeContain}
+			} : resizeStyle}
 			src={(this.state.loadingFailed || !this.props.source) ? defaultSource : this.props.source}
 			onError={this.onLoadImageFailure}
 			alt={"Not available"}

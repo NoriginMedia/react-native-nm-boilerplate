@@ -4,14 +4,15 @@ import Icon from "./Icon";
 import Image from "./Image";
 import colors from "../../shared/styles/colors";
 import {timestampToTimeString, timePercentElapsedBetween} from "../../shared/utils/time";
-// import ProgressBar from "./ProgressBar";
+import ProgressBar from "./ProgressBar";
 import {horizontalFlex} from "../styles/layout";
 
 const styles = {
 	image: {
-		minWidth: window.innerWidth,
-		minHeight: window.innerHeight * 0.35,
-		position: "relative"
+		minWidth: 800,
+		minHeight: 450,
+		position: "relative",
+		overflow: "hidden"
 	},
 	logoWrapper: {
 		position: "absolute",
@@ -26,7 +27,7 @@ const styles = {
 		position: "absolute",
 		bottom: 0,
 		left: 0,
-		width: window.innerWidth,
+		width: 800,
 		height: 80,
 		backgroundColor: colors.primary,
 		opacity: 0.9
@@ -110,7 +111,7 @@ class SlideshowItem extends React.Component {
 					/>
 				</div>
 				<div style={styles.overlay}>
-					{/*<ProgressBar percent={this.state.progress} />*/}
+					<ProgressBar percent={this.state.progress} />
 					<div style={styles.overlayInfo}>
 						<div style={styles.playButtonWrapper}>
 							<Link
@@ -125,18 +126,10 @@ class SlideshowItem extends React.Component {
 							}</Link>
 						</div>
 						<div style={styles.descriptionWrapper}>
-							<div
-								style={styles.title}
-								ellipsizeMode={"tail"}
-								numberOfLines={1}
-							>
+							<div style={styles.title}>
 								{this.props.title}
 							</div>
-							<div
-								style={styles.description}
-								ellipsizeMode={"tail"}
-								numberOfLines={4}
-							>
+							<div style={styles.description}>
 								{this.props.description}
 							</div>
 						</div>
