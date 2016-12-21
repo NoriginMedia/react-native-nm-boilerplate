@@ -28,7 +28,10 @@ const styles = {
 	title: {
 		color: "white",
 		fontWeight: "bold",
-		fontSize: 12
+		fontSize: 12,
+		whiteSpace: "nowrap",
+		overflow: "hidden",
+		textOverflow: "ellipsis"
 	},
 	time: {
 		color: "white",
