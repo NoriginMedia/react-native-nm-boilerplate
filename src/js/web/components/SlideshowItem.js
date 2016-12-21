@@ -5,7 +5,7 @@ import Image from "./Image";
 import colors from "../../shared/styles/colors";
 import {timestampToTimeString, timePercentElapsedBetween} from "../../shared/utils/time";
 import ProgressBar from "./ProgressBar";
-import {horizontalFlex} from "../styles/layout";
+import {horizontalFlex, verticalFlex} from "../styles/layout";
 
 const styles = {
 	image: {
@@ -36,6 +36,7 @@ const styles = {
 		...horizontalFlex
 	},
 	playButtonWrapper: {
+		...verticalFlex,
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center"
@@ -56,9 +57,12 @@ const styles = {
 	},
 	description: {
 		color: "white",
-		fontSize: 10
+		fontSize: 10,
+		maxHeight: 50,
+		overflow: "hidden"
 	},
 	infoWrapper: {
+		...verticalFlex,
 		flex: 2,
 		paddingTop: 5,
 		height: 70,

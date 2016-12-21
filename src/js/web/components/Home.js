@@ -1,9 +1,8 @@
 import React, {PropTypes} from "react";
 import Slideshow from "./Slideshow";
-
-// import Category from "./Category";
-// import LiveChannel from "./LiveChannel";
-// import Movie from "./Movie";
+import Category from "./Category";
+import LiveChannel from "./LiveChannel";
+import Movie from "./Movie";
 import TopBar from "./TopBar";
 import BottomBar from "./BottomBar";
 import BottomBarContainer from "../../shared/containers/BottomBar";
@@ -28,7 +27,7 @@ const Home = (props) => <div style={styles.content}>
 		<Slideshow
 			items={props.slides.length === 1 ? props.slides[0].contents : []}
 		/>
-		{/*		<Category
+		<Category
 			key={"channels"}
 			title={"Channels"}
 			itemComponent={LiveChannel}
@@ -45,7 +44,7 @@ const Home = (props) => <div style={styles.content}>
 			itemsAreLinks
 			itemLinkReferer={"/"}
 			horizontalScroll
-		/>)}*/}
+		/>)}
 	</div>
 	<BottomBarContainer component={BottomBar} />
 </div>;

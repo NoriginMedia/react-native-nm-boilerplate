@@ -1,5 +1,4 @@
 import React, {PropTypes} from "react";
-import {StyleSheet, TouchableOpacity, View, Text} from "react-native";
 import {Link} from "react-router";
 import Image from "./Image";
 import {pickCurrentProgram} from "../../shared/utils/schedule";
@@ -7,7 +6,7 @@ import {timestampToTimeString, timePercentElapsedBetween} from "../../shared/uti
 import ProgressBar from "./ProgressBar";
 import colors from "../../shared/styles/colors";
 
-const styles = StyleSheet.create({
+const styles = {
 	content: {
 		width: 150,
 		maxHeight: 150,
@@ -16,7 +15,8 @@ const styles = StyleSheet.create({
 	},
 	logoBackground: {
 		width: 140,
-		height: 90
+		height: 90,
+		position: "relative"
 	},
 	logo: {
 		position: "absolute",
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 		fontSize: 10,
 		paddingBottom: 5
 	}
-});
+};
 
 class LiveChannel extends React.Component {
 	constructor(props) {
@@ -82,16 +82,10 @@ class LiveChannel extends React.Component {
 	}
 
 	renderOngoingProgram() {
-		return this.state.program ? <View>
-			<Text
-				ellipsizeMode={"tail"}
-				numberOfLines={1}
-				style={styles.title}
-			>
-				{this.state.program.title}
-			</Text>
-			<Text style={styles.time}>{this.state.program.time}</Text>
-		</View> : <Text style={styles.title}>{"No Program"}</Text>;
+		return this.state.program ? <div>
+			<div style={styles.title}>{this.state.program.title}</div>
+			<div style={styles.time}>{this.state.program.time}</div>
+		</div> : <div style={styles.title}>{"No Program"}</div>;
 	}
 
 	renderChannelLogo() {
@@ -119,35 +113,31 @@ class LiveChannel extends React.Component {
 					query: {channelId: this.props.id}
 				}}
 			>{
-				({transition}) => <TouchableOpacity
-					onPress={transition}
-				>
+				({transition}) => <div onClick={transition}>
 					{image}
-				</TouchableOpacity>
+				</div>
 			}</Link>);
 		}
 
-		return (<TouchableOpacity
-			onPress={this.onImagePress}
-		>
+		return (<div onClick={this.onImagePress}>
 			{image}
-		</TouchableOpacity>);
+		</div>);
 	}
 
 	render() {
-		return (<View
-			style={[
-				styles.content,
-				this.props.style || {},
-				this.props.isSelected ? {
-					backgroundColor: colors.secondary
-				} : {}
-			]}
+		const highlightStyle = this.props.isSelected ? {backgroundColor: colors.secondary} : {};
+
+		return (<div
+			style={{
+				...styles.content,
+				...this.props.style,
+				...highlightStyle
+			}}
 		>
 			{this.renderChannelLogo()}
 			<ProgressBar percent={(this.state.program && this.state.program.elapsedPercent) || 0} />
 			{this.renderOngoingProgram()}
-		</View>);
+		</div>);
 	}
 }
 
@@ -175,7 +165,8 @@ LiveChannel.propTypes = {
 
 /* eslint-disable no-empty-function */
 LiveChannel.defaultProps = {
-	onPress: () => {}
+	onPress: () => {},
+	style: {}
 };
 
 export default LiveChannel;

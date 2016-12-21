@@ -1,10 +1,9 @@
 import React, {PropTypes} from "react";
-import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
 import {Link} from "react-router";
 import Image from "./Image";
 import {secondsToMinuteString} from "../../shared/utils/time";
 
-const styles = StyleSheet.create({
+const styles = {
 	content: {
 		width: 150,
 		maxHeight: 150,
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontSize: 10
 	}
-});
+};
 
 class Movie extends React.Component {
 	constructor(props) {
@@ -56,41 +55,38 @@ class Movie extends React.Component {
 					}
 				}}
 			>{
-				({transition}) => <TouchableOpacity
-					onPress={transition}
-				>
+				({transition}) => <div onClick={transition}>
 					{image}
-				</TouchableOpacity>
+				</div>
 			}</Link>);
 		}
 
-		return (<TouchableOpacity
-			onPress={this.onImagePress}
-		>
+		return (<div onClick={this.onImagePress}>
 			{image}
-		</TouchableOpacity>);
+		</div>);
 	}
 
 	renderDescription() {
 		const duration = this.props.metadata && this.props.metadata.duration;
 
-		return (<View>
-			<Text
-				ellipsizeMode={"tail"}
-				numberOfLines={1}
-				style={styles.title}
-			>
+		return (<div>
+			<div style={styles.title}>
 				{this.props.title}
-			</Text>
-			<Text style={styles.duration}>{`${secondsToMinuteString(duration || 0)} min`}</Text>
-		</View>);
+			</div>
+			<div style={styles.duration}>{`${secondsToMinuteString(duration || 0)} min`}</div>
+		</div>);
 	}
 
 	render() {
-		return (<View style={[styles.content, this.props.style || {}]}>
+		return (<div
+			style={{
+				...styles.content,
+				...this.props.style
+			}}
+		>
 			{this.renderImage()}
 			{this.renderDescription()}
-		</View>);
+		</div>);
 	}
 }
 
@@ -114,7 +110,8 @@ Movie.propTypes = {
 
 /* eslint-disable no-empty-function */
 Movie.defaultProps = {
-	onPress: () => {}
+	onPress: () => {},
+	style: {}
 };
 
 export default Movie;

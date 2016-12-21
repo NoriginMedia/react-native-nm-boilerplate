@@ -1,9 +1,18 @@
 import React, {PropTypes} from "react";
-import {View, StyleSheet, ScrollView, Text} from "react-native";
+import {verticalFlex, horizontalFlex} from "../styles/layout";
 
-const styles = StyleSheet.create({
+const styles = {
 	content: {
+		...verticalFlex,
 		flex: 1
+	},
+	horizontalScroll: {
+		...horizontalFlex,
+		overflowX: "scroll"
+	},
+	verticalScroll: {
+		...verticalFlex,
+		overflowY: "scroll"
 	},
 	header: {
 		height: 40,
@@ -16,7 +25,7 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontWeight: "bold"
 	}
-});
+};
 
 class Category extends React.Component {
 	constructor(props) {
@@ -41,26 +50,20 @@ class Category extends React.Component {
 			{...item}
 		/>);
 
-		if (this.props.horizontalScroll) {
-			return (<ScrollView horizontal showsHorizontalScrollIndicator={false}>
-				{items}
-			</ScrollView>);
-		}
-
-		return (<ScrollView>
+		return (<div style={this.props.horizontalScroll ? styles.horizontalScroll : styles.verticalScroll}>
 			{items}
-		</ScrollView>);
+		</div>);
 	}
 
 	render() {
-		return (<View style={styles.content}>
-			{this.props.title ? <View style={styles.header}>
-				<Text style={styles.headerText}>
+		return (<div style={styles.content}>
+			{this.props.title ? <div style={styles.header}>
+				<div style={styles.headerText}>
 					{this.props.title}
-				</Text>
-			</View> : null}
+				</div>
+			</div> : null}
 			{this.renderItemsContainer()}
-		</View>);
+		</div>);
 	}
 }
 
