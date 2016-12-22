@@ -1,5 +1,6 @@
 import React, {PropTypes} from "react";
 
+// Icon codes from MaterialIcons.json
 const iconsMap = {
 	"account-box": 59473,
 	"exit-to-app": 59513,
@@ -11,7 +12,13 @@ const iconsMap = {
 	"home": 59530,
 	"tv": 58163,
 	"view-list": 59631,
-	"theaters": 59610
+	"theaters": 59610,
+	"desktop-windows": 58124,
+	"tablet-mac": 58161,
+	"tablet-android": 58160,
+	"phone-android": 58148,
+	"phone-iphone": 58149,
+	"computer": 58122
 };
 
 const styles = {
