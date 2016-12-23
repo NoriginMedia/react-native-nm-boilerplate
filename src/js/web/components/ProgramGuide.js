@@ -21,14 +21,20 @@ const PIXELS_PER_HOUR = 300;
 const TIMELINE_DISPLAY_OFFSET = 120;
 
 const styles = {
+	wrapper: {
+		...verticalFlex,
+		flex: 1
+	},
 	content: {
 		...verticalFlex,
 		flex: 1,
 		backgroundColor: colors.background,
-		position: "relative"
+		position: "relative",
+		maxWidth: 1000,
+		alignSelf: "center"
 	},
 	timelineWrapper: {
-		height: 30,
+		minHeight: 30,
 		...horizontalFlex,
 		backgroundColor: colors.secondary,
 		position: "relative"
@@ -46,12 +52,11 @@ const styles = {
 	epgVerticalScroll: {
 		...verticalFlex,
 		flex: 1,
-		overflowY: "scroll"
+		overflowY: "scroll",
+		position: "relative"
 	},
 	epgContainer: {
-		flex: 1,
-		...horizontalFlex,
-		position: "relative"
+		flex: 1
 	},
 	logos: {
 		position: "absolute",
@@ -79,7 +84,7 @@ const styles = {
 		color: "white"
 	},
 	logoWrapper: {
-		height: 120,
+		height: 110,
 		padding: 5
 	},
 	logo: {
@@ -97,18 +102,17 @@ const styles = {
 	},
 	channelRow: {
 		...horizontalFlex,
-		height: 120
+		minHeight: 120
 	},
 	programWrapper: {
-		padding: 1,
 		height: 120
 	},
 	program: {
 		borderStyle: "solid",
-		borderWidth: 1,
+		borderWidth: 2,
 		borderColor: colors.primary,
 		backgroundColor: colors.secondary,
-		padding: 5,
+		padding: 3,
 		height: 110
 	},
 	programTitle: {
@@ -162,11 +166,15 @@ class ProgramGuide extends React.Component {
 		const intervalsCount = hourIntervalsBetween(minTime, maxTime);
 		const intervals = [];
 
+		let timelineWidth = 0;
+
 		for (let i = 0; i < intervalsCount; i++) {
 			const intervalStart = timeAfterHours(minTime, i);
 			const width = (timeAfterHours(intervalStart, 1) <= maxTime) ?
 				PIXELS_PER_HOUR :
 				timeIntervalWidthPerHour(intervalStart, maxTime, PIXELS_PER_HOUR);
+
+			timelineWidth += width;
 
 			intervals.push(
 				<div
@@ -181,7 +189,12 @@ class ProgramGuide extends React.Component {
 			);
 		}
 
-		return (<div style={styles.timelineWrapper}>
+		return (<div
+			style={{
+				...styles.timelineWrapper,
+				width: timelineWidth
+			}}
+		>
 			{intervals}
 		</div>);
 	}
@@ -272,22 +285,21 @@ class ProgramGuide extends React.Component {
 						}
 					}}
 				>{
-					({transition}) => <div onClick={transition}>
-						<div
-							style={{
-								...styles.programWrapper,
-								minWidth: timeIntervalWidthPerHour(program.start, program.end, PIXELS_PER_HOUR),
-								marginLeft: (programIndex === 0 && program.start > minTime) ?
-									timeIntervalWidthPerHour(minTime, program.start, PIXELS_PER_HOUR) : 0
-							}}
-						>
-							<div style={styles.program}>
-								<div style={styles.programTitle}>
-									{program.title}
-								</div>
-								<div style={styles.programTime}>
-									{`${timestampToTimeString(program.start)} - ${timestampToTimeString(program.end)}`}
-								</div>
+					({transition}) => <div
+						onClick={transition}
+						style={{
+							...styles.programWrapper,
+							minWidth: timeIntervalWidthPerHour(program.start, program.end, PIXELS_PER_HOUR),
+							marginLeft: (programIndex === 0 && program.start > minTime) ?
+								timeIntervalWidthPerHour(minTime, program.start, PIXELS_PER_HOUR) : 0
+						}}
+					>
+						<div style={styles.program}>
+							<div style={styles.programTitle}>
+								{program.title}
+							</div>
+							<div style={styles.programTime}>
+								{`${timestampToTimeString(program.start)} - ${timestampToTimeString(program.end)}`}
 							</div>
 						</div>
 					</div>
@@ -299,7 +311,7 @@ class ProgramGuide extends React.Component {
 	render() {
 		const {minTime, maxTime} = this.state;
 
-		return (<div style={styles.content}>
+		return (<div style={styles.wrapper}>
 			<TopBar />
 			<div style={styles.content}>
 				<div style={styles.epgVerticalScroll}>
@@ -314,8 +326,8 @@ class ProgramGuide extends React.Component {
 								}}
 							/>
 						</div>
-						{this.renderLogos()}
 					</div>
+					{this.renderLogos()}
 				</div>
 				<div onClick={this.scrollToNow}>
 					<div style={styles.nowButton}>
