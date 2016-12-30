@@ -152,7 +152,6 @@ class LiveChannel extends React.Component {
 }
 
 LiveChannel.propTypes = {
-	title: PropTypes.string.isRequired,
 	images: PropTypes.shape({
 		LOGO: PropTypes.string
 	}).isRequired,
