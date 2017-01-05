@@ -9,6 +9,12 @@
     "start:android": "react-native run-android"
   },
   "author": "NoriginMedia AS",
+  "contributors": [
+    {
+      "name": "Dmitriy Bryokhin",
+      "email": "dmitriy.bryokhin@noriginmedia.com"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.13.0",
