@@ -28,11 +28,24 @@ export const ACTION_TYPES = {
 };
 
 const ENDPOINTS = {
-	AUTH: "auth/anonymous",
-	FULL_AUTH: "auth/authenticate",
-	SVOD: "svod",
-	SLIDES: "slides",
+	AUTH: "orange-es/anonymous",
+	FULL_AUTH: "orange-es/authenticate",
+	TAG: "tag",
 	EPG: "epg"
+};
+
+const ENDPOINT_DEFAULT_PARAMS = {
+	EPG: {
+		from: "now",
+		offset: "-3h",
+		duration: "20h",
+		transform: "epg"
+	},
+	TAG: {
+		resolveLinks: true,
+		depth: 2,
+		limitContent: 18
+	}
 };
 
 /* GENERAL ERROR */
@@ -88,7 +101,9 @@ export const fetchSlides = () => (dispatch) => {
 		type: ACTION_TYPES.FETCH_SLIDES_REQUEST
 	});
 
-	return get(ENDPOINTS.SLIDES)
+	const params = ENDPOINT_DEFAULT_PARAMS.TAG;
+
+	return get(`${ENDPOINTS.TAG}/Slideshow@slideshow`, params)
 		.then((slides) => dispatch(fetchSlidesSuccess(slides)))
 		.catch((error) => dispatch(generalError(ACTION_TYPES.FETCH_SLIDES_REQUEST, error)));
 };
@@ -108,7 +123,9 @@ export const fetchChannels = () => (dispatch) => {
 		type: ACTION_TYPES.FETCH_CHANNELS_REQUEST
 	});
 
-	return get(ENDPOINTS.EPG)
+	const params = ENDPOINT_DEFAULT_PARAMS.EPG;
+
+	return get(ENDPOINTS.EPG, params)
 		.then((channels) => dispatch(fetchChannelsSuccess(channels)))
 		.catch((error) => dispatch(generalError(ACTION_TYPES.FETCH_CHANNELS_REQUEST, error)));
 };
@@ -128,7 +145,12 @@ export const fetchCategories = () => (dispatch) => {
 		type: ACTION_TYPES.FETCH_CATEGORIES_REQUEST
 	});
 
-	return get(ENDPOINTS.SVOD)
+	const params = {
+		...ENDPOINT_DEFAULT_PARAMS.TAG,
+		byFamilyLink: "svodCategories"
+	};
+
+	return get(ENDPOINTS.TAG, params)
 		.then((categories) => dispatch(fetchCategoriesSuccess(categories)))
 		.catch((error) => dispatch(generalError(ACTION_TYPES.FETCH_CATEGORIES_REQUEST, error)));
 };
@@ -163,7 +185,7 @@ export const login = (credentials) => (dispatch) => {
 	const params = {
 		appId: APP_ID,
 		appVersion: APP_VERSION,
-		deviceIdentifier: "rn-prototype-test-device",
+		deviceIdentifier: "demo-test-device",
 		...credentials
 	};
 
