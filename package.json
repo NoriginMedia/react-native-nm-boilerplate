@@ -7,7 +7,8 @@
     "build:web": "babel-node -- ./node_modules/.bin/webpack",
     "start:ios": "react-native run-ios",
     "start:android": "react-native run-android",
-    "build:android": "./android/gradlew assembleRelease",
+    "bundle:android": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+    "build:android": "cd android && ./gradlew assembleRelease",
     "build:ios": "react-native bundle --platform ios --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios --assets-dest ./ios"
   },
   "author": "NoriginMedia AS",
