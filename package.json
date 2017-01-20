@@ -6,7 +6,9 @@
     "start:web": "babel-node -- ./node_modules/.bin/webpack-dev-server --hot",
     "build:web": "babel-node -- ./node_modules/.bin/webpack",
     "start:ios": "react-native run-ios",
-    "start:android": "react-native run-android"
+    "start:android": "react-native run-android",
+    "build:android": "./android/gradlew assembleRelease",
+    "build:ios": "react-native bundle --platform ios --dev false --entry-file index.ios.js --bundle-output ios/main.jsbundle --platform ios --assets-dest ./ios"
   },
   "author": "NoriginMedia AS",
   "contributors": [
